@@ -1,0 +1,1251 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Find Answers, Not Hype</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600;9..144,700&family=IBM+Plex+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --paper: #F1F1F7;
+    --paper-raised: #FFFFFF;
+    --ink: #23233A;
+    --ink-soft: #5C5C74;
+    --line: #D9D9E7;
+    --brass: #B8892B;
+    --brass-deep: #8F6A1E;
+    --gold-soft: #F3E7C9;
+    --blue: #3D5D8A;
+    --purple: #6B4C86;
+    --sage-soft: #E3EAE2;
+    --green: #1E7A46;
+    --green-soft: #DCF0E2;
+    --focus: #3D5D8A;
+    box-sizing: border-box;
+    padding-top: env(safe-area-inset-top, 0px);
+    padding-bottom: env(safe-area-inset-bottom, 0px);
+  }
+
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) {
+      --paper: #1B1B2A;
+      --paper-raised: #24243A;
+      --ink: #EDEDF6;
+      --ink-soft: #ADADC6;
+      --line: #38384F;
+      --brass: #D9AF56;
+      --brass-deep: #E8C36E;
+      --gold-soft: #3A2F17;
+      --blue: #86A6D6;
+      --purple: #B497D6;
+      --sage-soft: #263329;
+      --green: #5FD394;
+      --green-soft: #1D3A28;
+      --focus: #86A6D6;
+    }
+  }
+  :root[data-theme="dark"] {
+    --paper: #1B1B2A;
+    --paper-raised: #24243A;
+    --ink: #EDEDF6;
+    --ink-soft: #ADADC6;
+    --line: #38384F;
+    --brass: #D9AF56;
+    --brass-deep: #E8C36E;
+    --gold-soft: #3A2F17;
+    --blue: #86A6D6;
+    --purple: #B497D6;
+    --sage-soft: #263329;
+    --green: #5FD394;
+    --green-soft: #1D3A28;
+    --focus: #86A6D6;
+  }
+
+  * { box-sizing: border-box; }
+
+  html { scroll-padding-top: env(safe-area-inset-top, 0px); }
+
+  html, body {
+    height: 100%;
+  }
+
+  body {
+    margin: 0;
+    background: var(--paper);
+    color: var(--ink);
+    font-family: "IBM Plex Sans", system-ui, sans-serif;
+    line-height: 1.5;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  h1, h2, h3, .display {
+    font-family: "Fraunces", Georgia, serif;
+    font-weight: 600;
+    letter-spacing: -0.01em;
+    margin: 0;
+  }
+
+  a { color: var(--focus); }
+
+  .wrap {
+    max-width: 980px;
+    margin: 0 auto;
+    padding: 40px 24px 64px;
+  }
+
+  header.masthead {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    gap: 24px;
+    padding-bottom: 28px;
+    border-bottom: 1px solid var(--line);
+    margin-bottom: 36px;
+  }
+
+  .masthead-title { max-width: 640px; }
+
+  .masthead-title h1 {
+    font-size: clamp(1.6rem, 3.4vw, 2.15rem);
+    line-height: 1.15;
+  }
+
+  .masthead-title p {
+    margin: 10px 0 0;
+    color: var(--ink-soft);
+    font-size: 0.98rem;
+    max-width: 46ch;
+  }
+
+  .masthead-mark {
+    flex-shrink: 0;
+    min-width: 46px;
+    height: 46px;
+    padding: 0 10px;
+    border: 1.5px solid var(--brass);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--brass-deep);
+    font-family: "Fraunces", serif;
+    font-size: 1.05rem;
+    letter-spacing: 0.02em;
+    font-weight: 600;
+  }
+
+  .board {
+    display: grid;
+    grid-template-columns: 260px 1fr;
+    gap: 32px;
+    align-items: start;
+  }
+
+  @media (max-width: 720px) {
+    .board { grid-template-columns: 1fr; }
+    .rail { order: 2; }
+    .stage { order: 1; }
+  }
+
+  .rail {
+    border-left: 2px solid var(--line);
+    padding-left: 20px;
+    position: sticky;
+    top: 24px;
+  }
+  @media (max-width: 720px) {
+    .rail {
+      position: static;
+      border-left: none;
+      border-top: 2px solid var(--line);
+      padding-left: 0;
+      padding-top: 18px;
+      margin-top: 8px;
+    }
+  }
+
+  .rail-label {
+    font-size: 0.78rem;
+    color: var(--ink-soft);
+    margin-bottom: 14px;
+  }
+
+  .rail-item {
+    padding: 0 0 14px;
+    margin-bottom: 14px;
+    border-bottom: 1px dashed var(--line);
+    font-size: 0.88rem;
+  }
+  .rail-item:last-child { border-bottom: none; margin-bottom: 0; padding-bottom: 0; }
+
+  .rail-item .q { color: var(--ink-soft); margin-bottom: 3px; }
+  .rail-item .a { color: var(--ink); font-weight: 500; }
+
+  .rail-item.fte-highlight {
+    background: var(--green-soft);
+    border-left: 3px solid var(--green);
+    border-bottom: none;
+    padding: 10px 10px 10px 11px;
+    margin: 0 0 14px -14px;
+    width: calc(100% + 14px);
+  }
+  .rail-item.fte-highlight .q { color: var(--green); font-weight: 500; }
+  .rail-item.fte-highlight .a { color: var(--ink); font-weight: 600; }
+
+  .rail-empty { color: var(--ink-soft); font-size: 0.88rem; }
+
+  .restart-link {
+    display: inline-block;
+    margin-top: 18px;
+    font-size: 0.85rem;
+    color: var(--purple);
+    text-decoration: none;
+    border-bottom: 1px solid currentColor;
+    cursor: pointer;
+    background: none;
+    border-top: none;
+    border-left: none;
+    border-right: none;
+    padding: 0;
+    font-family: inherit;
+  }
+  .restart-link:hover { opacity: 0.75; }
+
+  .stage {
+    background: var(--paper-raised);
+    border: 1px solid var(--line);
+    padding: 32px clamp(20px, 4vw, 44px);
+    min-height: 360px;
+  }
+
+  .step-tag {
+    font-size: 0.78rem;
+    color: var(--blue);
+    margin-bottom: 10px;
+  }
+
+  .question h2 {
+    font-size: clamp(1.25rem, 2.6vw, 1.55rem);
+    line-height: 1.3;
+    margin-bottom: 22px;
+    max-width: 40ch;
+  }
+
+  .options {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  .option-btn {
+    text-align: left;
+    background: var(--paper);
+    border: 1px solid var(--line);
+    padding: 15px 18px;
+    font-family: inherit;
+    font-size: 0.98rem;
+    color: var(--ink);
+    cursor: pointer;
+    transition: border-color 0.15s ease, background 0.15s ease, transform 0.1s ease;
+  }
+  .option-btn:hover {
+    border-color: var(--purple);
+    background: var(--sage-soft);
+  }
+  .option-btn:focus-visible {
+    outline: 2px solid var(--focus);
+    outline-offset: 2px;
+  }
+  .option-btn:active { transform: translateY(1px); }
+
+  .nav-row {
+    margin-top: 26px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  .back-btn {
+    background: none;
+    border: none;
+    color: var(--ink-soft);
+    font-family: inherit;
+    font-size: 0.88rem;
+    cursor: pointer;
+    padding: 4px 0;
+  }
+  .back-btn:hover { color: var(--ink); }
+  .back-btn:disabled { visibility: hidden; }
+
+  /* Result */
+  .result-kicker {
+    font-size: 0.8rem;
+    color: var(--purple);
+    margin-bottom: 8px;
+  }
+
+  .result h2 {
+    font-size: clamp(1.5rem, 3.2vw, 1.95rem);
+    line-height: 1.2;
+    margin-bottom: 16px;
+    max-width: 32ch;
+  }
+
+  .result-block { margin-bottom: 6px; }
+  .result-block > h3 {
+    font-size: clamp(1.2rem, 2.6vw, 1.5rem);
+    line-height: 1.25;
+    margin-bottom: 14px;
+    max-width: 34ch;
+  }
+
+  .result-divider {
+    border: none;
+    border-top: 1px solid var(--line);
+    margin: 28px 0;
+  }
+
+  .followup-note {
+    font-size: 0.88rem;
+    color: var(--ink-soft);
+    margin: 14px 0 4px;
+    max-width: 360px;
+    line-height: 1.4;
+  }
+
+  .result .why {
+    color: var(--ink-soft);
+    max-width: 60ch;
+    margin-bottom: 26px;
+    font-size: 1rem;
+  }
+
+  .cols {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 24px;
+    margin-bottom: 22px;
+  }
+  @media (max-width: 560px) {
+    .cols { grid-template-columns: 1fr; }
+  }
+
+  .col h3 {
+    font-size: 0.82rem;
+    font-family: "IBM Plex Sans", sans-serif;
+    font-weight: 600;
+    color: var(--ink);
+    margin-bottom: 12px;
+    padding-bottom: 8px;
+    border-bottom: 1px solid var(--line);
+  }
+
+  .col ul {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+  .col li {
+    position: relative;
+    padding-left: 16px;
+    margin-bottom: 10px;
+    font-size: 0.92rem;
+    color: var(--ink-soft);
+    line-height: 1.45;
+  }
+  .col li::before {
+    content: "";
+    position: absolute;
+    left: 0;
+    top: 0.55em;
+    width: 6px;
+    height: 6px;
+  }
+  .col.features li::before { background: var(--blue); border-radius: 50%; }
+  .col.watch li::before { background: var(--purple); border-radius: 1px; }
+
+  .disclaimer {
+    margin-top: 24px;
+    padding: 14px 16px;
+    background: var(--gold-soft);
+    border-left: 3px solid var(--brass-deep);
+    font-size: 0.85rem;
+    color: var(--ink-soft);
+  }
+
+  .hook {
+    font-family: "Fraunces", Georgia, serif;
+    font-weight: 500;
+    font-size: 1.08rem;
+    color: var(--brass-deep);
+    max-width: 46ch;
+    margin: 0 0 16px;
+    line-height: 1.4;
+  }
+
+  .intro-note {
+    color: var(--ink-soft);
+    font-size: 0.92rem;
+    max-width: 44ch;
+    margin: -12px 0 22px;
+  }
+
+  .calc-block {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    max-width: 420px;
+  }
+
+  .calc-label {
+    font-size: 0.85rem;
+    color: var(--ink-soft);
+    margin-top: 10px;
+  }
+
+  .period-row {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin-bottom: 4px;
+  }
+
+  .period-btn {
+    font-family: inherit;
+    font-size: 0.9rem;
+    padding: 9px 14px;
+    background: var(--paper);
+    border: 1px solid var(--line);
+    color: var(--ink-soft);
+    cursor: pointer;
+    transition: border-color 0.15s ease, color 0.15s ease, background 0.15s ease;
+  }
+  .period-btn:hover { border-color: var(--purple); }
+  .period-btn.active {
+    border-color: var(--blue);
+    color: var(--ink);
+    background: var(--paper-raised);
+    font-weight: 500;
+  }
+
+  .hours-input {
+    font-family: inherit;
+    font-size: 1.05rem;
+    padding: 12px 14px;
+    background: var(--paper-raised);
+    border: 1px solid var(--line);
+    color: var(--ink);
+    max-width: 240px;
+  }
+  .hours-input:focus-visible {
+    outline: 2px solid var(--focus);
+    outline-offset: 2px;
+  }
+
+  .calc-error {
+    color: var(--purple);
+    font-size: 0.85rem;
+  }
+
+  .calc-submit {
+    margin-top: 10px;
+    align-self: flex-start;
+    border-color: var(--blue);
+    font-weight: 500;
+  }
+
+  .fte-note {
+    font-size: 0.92rem;
+    color: var(--ink-soft);
+    margin: 0 0 14px;
+  }
+  .fte-note strong { color: var(--ink); }
+
+  .bridge-btn {
+    display: inline-block;
+    width: auto;
+    margin-top: 22px;
+    border-color: var(--blue);
+    color: var(--blue);
+    font-weight: 500;
+    text-decoration: none;
+  }
+  .bridge-btn:hover {
+    background: var(--sage-soft);
+    border-color: var(--purple);
+    color: var(--ink);
+  }
+
+  footer {
+    margin-top: 40px;
+    padding-top: 20px;
+    border-top: 1px solid var(--line);
+    font-size: 0.82rem;
+    color: var(--ink-soft);
+  }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <header class="masthead">
+    <div class="masthead-title">
+      <h1>Find answers, not hype.</h1>
+      <p>A few quick questions about your workforce — on health coverage, retirement, or both — point you to the plan that actually fits.</p>
+    </div>
+    <div class="masthead-mark" aria-hidden="true">SLT</div>
+  </header>
+
+  <div class="board">
+    <aside class="rail">
+      <div class="rail-label">Your path</div>
+      <div id="railList"><div class="rail-empty">Answers will appear here as you go.</div></div>
+      <button class="restart-link" id="restartBtn" style="display:none;">Start over</button>
+    </aside>
+
+    <main class="stage" id="stage" aria-live="polite"></main>
+  </div>
+
+  <footer>
+    Educational tool only — not legal, tax, or benefits advice. Confirm FTE counts and plan design with a qualified advisor before adopting any plan.
+  </footer>
+
+</div>
+
+<script>
+(function() {
+  var tree = {
+    topic_select: {
+      question: "What brought you to StopLosingTalent today?",
+      tag: "Start here",
+      note: "Pick what fits \u2014 we'll ask a few quick questions either way, and you can see both if you're not sure yet.",
+      options: [
+        { label: "Health benefits", value: "Health benefits", next: "intro", topic: "health" },
+        { label: "Retirement benefits", value: "Retirement benefits", next: "r_profit", topic: "retirement" },
+        { label: "Not sure \u2014 show me both", value: "Explore both", next: "intro", topic: "both" }
+      ]
+    },
+    r_profit: {
+      question: "Is your organization a nonprofit (501(c)(3)) or a for-profit business?",
+      tag: "Retirement \u00b7 Step 1",
+      options: [
+        { label: "Nonprofit (501(c)(3))", value: "Nonprofit", next: "r_census", orgType: "nonprofit" },
+        { label: "For-profit business", value: "For-profit", next: "r_census", orgType: "forprofit" }
+      ]
+    },
+    r_census: {
+      question: "About how many employees do you have?",
+      tag: "Retirement \u00b7 Step 2",
+      options: [
+        { label: "Fewer than 25 employees", value: "Fewer than 25 employees", next: "RESULT:__compute__", census: "under25" },
+        { label: "26 to 50 employees", value: "26 to 50 employees", next: "RESULT:__compute__", census: "26to50" },
+        { label: "51 to 100 employees", value: "51 to 100 employees", next: "RESULT:__compute__", census: "51to100" },
+        { label: "More than 100 employees", value: "More than 100 employees", next: "RESULT:__compute__", census: "over100" }
+      ]
+    },
+    intro: {
+      question: "What's mainly bringing you here today?",
+      tag: "Before we start",
+      note: "This won't change which plan fits \u2014 FTE count and current coverage still decide that \u2014 but it helps us lead with what matters most to you.",
+      options: [
+        { label: "Attracting and keeping good employees", value: "Attracting and keeping good employees", next: "q_know_fte", motivation: "retention" },
+        { label: "Avoiding ACA penalties and staying compliant", value: "Avoiding ACA penalties and staying compliant", next: "q_know_fte", motivation: "compliance" },
+        { label: "Both, about equally", value: "Both, about equally", next: "q_know_fte", motivation: "both" }
+      ]
+    },
+    q_know_fte: {
+      question: "Do you already know your FTE (full-time equivalent) employee count?",
+      tag: "Step 1",
+      options: [
+        { label: "Yes, I know it", value: "Knows FTE count", next: "q_fte" },
+        { label: "No \u2014 calculate it for me", value: "Wants FTE calculated", next: "q_fte_calc" }
+      ]
+    },
+    q_fte_calc: {
+      type: "calc",
+      tag: "Step 2",
+      question: "Over a recent stretch of time, how many hours have all of your employees worked, combined?",
+      note: "Add up every employee's hours over that period \u2014 full-time and part-time together \u2014 and enter the total. We'll divide it out to an FTE count for you.",
+      periodOptions: [
+        { label: "Last 3 months", months: 3 },
+        { label: "Last 6 months", months: 6 },
+        { label: "Last 9 months", months: 9 },
+        { label: "Last 12 months", months: 12 }
+      ],
+      defaultMonths: 12
+    },
+    q_fte: {
+      question: "About how many full-time-equivalent (FTE) employees do you have, or expect to average this year?",
+      tag: "Step 2",
+      options: [
+        { label: "Fewer than 50 FTEs", value: "Fewer than 50 FTEs", next: "q_group_small" },
+        { label: "50 or more FTEs", value: "50 or more FTEs", next: "q_group_large" }
+      ]
+    },
+    q_group_small: {
+      question: "Do you currently offer a traditional group health insurance plan (medical, dental, or vision)?",
+      tag: "Step 4",
+      options: [
+        { label: "Yes, we offer group coverage", value: "Yes, offers group coverage", next: "q_carveout_small" },
+        { label: "No group plan right now", value: "No group plan", next: "q_uniform" }
+      ]
+    },
+    q_carveout_small: {
+      question: "Would you like to add a separate benefit just for employees your group plan doesn't cover — like part-timers or seasonal staff?",
+      tag: "Step 4",
+      options: [
+        { label: "Yes, cover that excluded group", value: "Yes, cover excluded group", next: "RESULT:ichra_carveout" },
+        { label: "No, just comparing options", value: "No, just comparing", next: "RESULT:keep_group" }
+      ]
+    },
+    q_uniform: {
+      question: "Do you want every eligible employee to get the same dollar allowance, or do you want to vary the amount by role, hours, or location?",
+      tag: "Step 4",
+      options: [
+        { label: "Same amount for everyone", value: "Same amount for everyone", next: "q_growth" },
+        { label: "Vary by employee class", value: "Vary by employee class", next: "RESULT:ichra_flex" }
+      ]
+    },
+    q_growth: {
+      question: "Do you expect to grow past 50 FTEs within the next year or two?",
+      tag: "Step 5",
+      options: [
+        { label: "Yes, that's likely", value: "Likely to cross 50 FTEs soon", next: "RESULT:ichra_futureproof" },
+        { label: "No, staying small", value: "Staying under 50 FTEs", next: "RESULT:qsehra_simple" }
+      ]
+    },
+    q_group_large: {
+      question: "Do you already offer a group health plan to substantially all of your full-time employees?",
+      tag: "Step 3",
+      options: [
+        { label: "Yes", value: "Yes, offers group plan to full-time staff", next: "RESULT:keep_group_large" },
+        { label: "No", value: "No group plan for full-time staff", next: "q_priority" }
+      ]
+    },
+    q_priority: {
+      question: "What matters most to you right now?",
+      tag: "Step 4",
+      options: [
+        { label: "Fully satisfying ACA requirements and giving employees real coverage value", value: "Prioritize compliance and employee value", next: "RESULT:ichra_affordable" },
+        { label: "Minimizing our cost while avoiding the \u201cno offer\u201d penalty", value: "Prioritize minimizing cost", next: "RESULT:mec_minimal" }
+      ]
+    }
+  };
+
+  var results = {
+    ichra_carveout: {
+      plan: "ICHRA",
+      title: "ICHRA \u2014 for the employees outside your group plan",
+      hooks: {
+        retention: "Extending real coverage to the staff your group plan leaves out is one of the simplest ways to show them they're valued too.",
+        compliance: "Closing this gap adds coverage for an excluded class without disturbing the group plan compliance you already have in place."
+      },
+      why: "You already offer group coverage, so a QSEHRA isn't available to you \u2014 it can't be layered on top of an existing group plan. An ICHRA lets you add a separate, tax-free allowance for the class of employees your group plan doesn't reach, often part-time, seasonal, or per-diem staff, without touching the coverage you already have.",
+      features: [
+        "Can run alongside your existing group plan, as long as it's offered to a different employee class",
+        "No IRS cap on the allowance amount",
+        "Employees use the funds to buy their own individual coverage"
+      ],
+      watch: [
+        "Employees receiving the ICHRA must enroll in individual coverage (or Medicare) to use it",
+        "Class definitions have to follow IRS rules \u2014 worth having a clean plan document written for this"
+      ]
+    },
+    keep_group: {
+      plan: "Group plan stays",
+      title: "QSEHRA isn't available to you right now",
+      hooks: {
+        retention: "Your group plan is probably still your strongest retention tool right now \u2014 the real question is what, if anything, to add on top of it.",
+        compliance: "QSEHRA simply isn't a legal option while you're offering group coverage, so your compliant choices here are narrower than you might expect."
+      },
+      why: "Because you're currently offering a group health plan, QSEHRA is off the table \u2014 it can't be combined with group coverage under any circumstances. If you want more flexibility than the group plan gives you, the real choice is between dropping the group plan in favor of an ICHRA or QSEHRA, or adding an ICHRA later for a class the group plan doesn't reach.",
+      features: [
+        "QSEHRA requires that no other group health plan be offered, full stop",
+        "ICHRA can coexist with a group plan, but only for a different employee class"
+      ],
+      watch: [
+        "Weigh the tradeoffs carefully before dropping existing group coverage \u2014 it may still be the better deal for your core full-time staff"
+      ]
+    },
+    ichra_flex: {
+      plan: "ICHRA",
+      title: "ICHRA \u2014 flexible by employee class",
+      hooks: {
+        retention: "Different employees value different things \u2014 this lets you actually reward your full-timers, your field staff, and your part-timers on terms that fit each group.",
+        compliance: "Structuring contributions by class also gives you room to size allowances precisely if ACA affordability ever becomes a factor for you."
+      },
+      why: "You want to vary the benefit by role, hours, or location, and that's exactly what ICHRA is built for. A QSEHRA requires a uniform dollar amount for everyone (age and family size aside), so it can't do what you're describing.",
+      features: [
+        "Contributions can differ across up to 11 IRS-defined employee classes \u2014 full-time/part-time, hourly/salaried, location, and more",
+        "No IRS cap on the allowance",
+        "Works at any employee count, so it won't need to change if you grow"
+      ],
+      watch: [
+        "Employees need individual ACA-qualifying coverage (or Medicare) to use the funds",
+        "Needs an affordability calculation if you eventually want it to satisfy the ACA employer mandate"
+      ]
+    },
+    ichra_futureproof: {
+      plan: "ICHRA",
+      title: "ICHRA \u2014 worth the extra setup now",
+      hooks: {
+        retention: "Setting this up right the first time means you won't have to explain a benefit change to your team later \u2014 it just keeps working as you grow.",
+        compliance: "Building on ICHRA now means you won't have to redo your compliance structure the moment you cross the 50-FTE line."
+      },
+      why: "A uniform QSEHRA would work today, but since you're likely to cross 50 FTEs soon, QSEHRA eligibility will end automatically once you do. Setting up an ICHRA now means the plan doesn't need to be rebuilt when that happens.",
+      features: [
+        "Works the same whether you're at 10 employees or 500",
+        "No IRS dollar cap, so it scales with your budget as you grow",
+        "Can stay uniform today and split into classes later without switching plan types"
+      ],
+      watch: [
+        "More setup and ongoing administration than a QSEHRA for a small team",
+        "Employees need individual ACA-qualifying coverage (or Medicare) to use it"
+      ]
+    },
+    qsehra_simple: {
+      plan: "QSEHRA",
+      title: "QSEHRA \u2014 the simplest fit",
+      hooks: {
+        retention: "A QSEHRA is a fast, low-drama way to tell your team you've got their back on healthcare \u2014 without taking on a full group plan.",
+        compliance: "At your size there's no ACA penalty exposure to manage, so a QSEHRA gets you tax-free healthcare support with the least regulatory overhead."
+      },
+      why: "You're under 50 FTEs, don't offer a group plan, want a uniform amount for everyone, and aren't expecting to grow past 50 soon. That's the exact profile QSEHRA was built for \u2014 the least setup and the least ongoing administration of the three options.",
+      features: [
+        "2026 IRS caps: $6,450/year self-only, $13,100/year family",
+        "Employees just need minimum essential coverage (MEC) to use it tax-free \u2014 not necessarily marketplace coverage",
+        "Simple, uniform structure with minimal ongoing administration"
+      ],
+      watch: [
+        "A QSEHRA allowance can reduce or eliminate an employee's marketplace premium tax credit \u2014 lower-income staff should run the numbers before enrolling",
+        "You can't offer a group health plan alongside it"
+      ]
+    },
+    keep_group_large: {
+      plan: "Group plan stays",
+      title: "Your group plan is likely already doing the job",
+      hooks: {
+        retention: "If your group plan already covers your full-time team well, it's probably doing more for retention than a new plan type would.",
+        compliance: "Offering group coverage to substantially all full-time staff is generally how larger employers clear the ACA mandate in the first place."
+      },
+      why: "Offering group coverage to substantially all full-time employees is generally how larger employers satisfy the ACA employer mandate in the first place. ICHRA and MEC plans mainly come into play here for the employees your group plan doesn't reach.",
+      features: [
+        "An ICHRA can add a carve-out benefit for a class not on the group plan \u2014 part-time or seasonal staff, for example",
+        "MEC plans are rarely useful once group coverage is already in place"
+      ],
+      watch: [
+        "Confirm your group plan actually meets ACA \u201cminimum essential coverage\u201d and \u201cminimum value\u201d standards for your full-time class",
+        "If you want to cover excluded employees, an ICHRA carve-out is usually cleaner than a second group plan"
+      ]
+    },
+    ichra_affordable: {
+      plan: "ICHRA",
+      title: "ICHRA, structured to be \u201caffordable\u201d",
+      hooks: {
+        retention: "This is the option that gives your team a benefit they can actually use \u2014 not just a checkbox on a compliance form.",
+        compliance: "At 50+ FTEs, this is the structure built specifically to satisfy the ACA employer mandate while keeping you out of penalty territory."
+      },
+      why: "At 50+ FTEs you're an ACA Applicable Large Employer, so the employer mandate is live. An ICHRA sized to meet the IRS affordability threshold is the option built to satisfy the mandate while giving employees a benefit they can actually use \u2014 not just a box-checking policy.",
+      features: [
+        "Can be designed to avoid the ACA \u201cemployer shared responsibility\u201d penalties",
+        "No IRS cap \u2014 the allowance is sized to your budget and affordability target",
+        "Employees choose their own individual plan, and the allowance can vary by class"
+      ],
+      watch: [
+        "Affordability calculations need to be run \u2014 and re-checked \u2014 every year as premiums and wages change",
+        "Requires clear plan documents and employee notices to hold up under IRS/DOL review"
+      ]
+    },
+    mec_minimal: {
+      plan: "MEC plan",
+      title: "MEC plan \u2014 lowest-cost compliance option",
+      hooks: {
+        retention: "Worth knowing upfront: this route optimizes for your cost, not for how much your employees will actually feel it \u2014 that tradeoff matters if retention is the real goal.",
+        compliance: "This is the leanest way to avoid the ACA \u201cno offer\u201d penalty at your size, though it leaves some exposure on the table (more below)."
+      },
+      why: "A MEC-only plan is often the cheapest way for a large employer to avoid the ACA \u201cno offer\u201d penalty, which is why it shows up so often in lower-wage, staffing-heavy industries. It's worth going in with a clear view of what it doesn't solve.",
+      features: [
+        "Low-cost, vendor-administered insured product",
+        "Satisfies the \u201coffer of minimum essential coverage\u201d requirement",
+        "Faster to stand up than designing an ICHRA"
+      ],
+      watch: [
+        "Usually doesn't meet ACA \u201cminimum value,\u201d so employees can still claim marketplace subsidies \u2014 and you can still owe the smaller penalty for those employees",
+        "Gives employees comparatively little real coverage value, which can matter for retention"
+      ]
+    },
+
+    retire_fp_micro: {
+      plan: "SEP IRA or SIMPLE IRA",
+      track: "retirement",
+      title: "SEP IRA or SIMPLE IRA \u2014 keep it simple",
+      why: "At this size, a SEP or a SIMPLE IRA covers the ground you need without the administrative weight of a 401(k). Which one fits comes down to one question: do you want employees deferring their own pay, or just a simple, employer-funded plan?",
+      features: [
+        "SEP IRA: employer-only contributions up to 25% of compensation or $72,000 (2026), same percentage for every eligible employee including the owner",
+        "SIMPLE IRA: employees can defer up to $17,000 in 2026 ($18,100 if you have 25 or fewer employees), plus a modest required employer contribution",
+        "Both skip the annual nondiscrimination testing a 401(k) requires"
+      ],
+      watch: [
+        "SEP contributions must be the same percentage for everyone eligible \u2014 it gets expensive fast if you want to favor owners or management as headcount grows",
+        "SIMPLE IRA's deferral cap sits well below a 401(k)'s, which starts to matter once higher earners want to save more"
+      ]
+    },
+    retire_fp_growing: {
+      plan: "Safe Harbor 401(k)",
+      track: "retirement",
+      title: "Safe Harbor 401(k) becomes worth the cost",
+      why: "This is usually the size where a 401(k) starts paying for itself. A Safe Harbor design sidesteps the nondiscrimination testing that trips up employers with a small, higher-paid leadership group sitting over a larger hourly workforce \u2014 a familiar shape in home health and hospice staffing.",
+      features: [
+        "2026 employee deferral limit: $24,500, well above SIMPLE IRA's cap",
+        "Safe Harbor's defined match or nonelective contribution formula automatically satisfies IRS nondiscrimination testing",
+        "More plan design flexibility \u2014 vesting schedules, loan provisions, profit-sharing add-ons"
+      ],
+      watch: [
+        "Meaningfully more administrative cost and complexity than a SIMPLE IRA \u2014 usually needs a third-party administrator",
+        "The Safe Harbor contribution is mandatory once adopted, not optional year to year the way a SIMPLE or SEP contribution can be"
+      ]
+    },
+    retire_fp_upper: {
+      plan: "Safe Harbor 401(k)",
+      track: "retirement",
+      title: "Safe Harbor 401(k) \u2014 and the SIMPLE cliff is coming",
+      why: "You're still under the 100-employee cap that keeps SIMPLE IRA legally available, but a Safe Harbor 401(k) is almost always the better fit here \u2014 and worth locking in before you outgrow SIMPLE eligibility altogether.",
+      features: [
+        "Same Safe Harbor advantages as a smaller growing employer: automatic nondiscrimination compliance, higher deferral limits, more design flexibility",
+        "Dedicated plan administration becomes easier to justify against the employee count"
+      ],
+      watch: [
+        "SIMPLE IRA eligibility ends once you exceed 100 employees who earned $5,000+ in the prior year \u2014 switching plans later is more disruptive than starting with the plan built to scale",
+        "Testing risk (without Safe Harbor) tends to rise as the gap between caregiving pay and leadership pay widens"
+      ]
+    },
+    retire_fp_large: {
+      plan: "401(k)",
+      track: "retirement",
+      title: "401(k) with dedicated administration",
+      why: "At this size, SIMPLE IRA is off the table entirely, and the plan needs to run like a real benefits program \u2014 dedicated administration, a defined contribution formula, and a compliance calendar.",
+      features: [
+        "Safe Harbor or traditional 401(k), sized to your workforce and testing profile",
+        "Full 2026 contribution room: $24,500 employee deferral, up to $72,000 total including employer contributions"
+      ],
+      watch: [
+        "A traditional (non-Safe Harbor) 401(k) needs annual ADP/ACP testing \u2014 worth confirming your workforce mix can reliably pass before choosing that route over Safe Harbor"
+      ]
+    },
+    retire_np_micro: {
+      plan: "403(b) or SIMPLE IRA",
+      track: "retirement",
+      title: "403(b) deferral-only, or SIMPLE IRA if you want to match",
+      why: "As a 501(c)(3), you have an option for-profits don't: a 403(b) that only lets employees defer their own pay, with no employer contribution or involvement, can avoid ERISA entirely \u2014 about as low-admin as retirement benefits get. The moment you want to add a match, that simplicity edge disappears, and a SIMPLE IRA becomes the more comparable, lower-cost option.",
+      features: [
+        "Deferral-only 403(b): no employer cost, no ERISA fiduciary duties, minimal plan administration",
+        "SIMPLE IRA: same $17,000 / $18,100 (2026) deferral limits as for-profits, plus a modest required match if you want to actually contribute"
+      ],
+      watch: [
+        "Adding any employer contribution or real plan involvement to a 403(b) generally makes it an ERISA plan \u2014 at that point it carries administrative weight similar to a 401(k)",
+        "A deferral-only plan doesn't help you compete on employer-funded retirement benefits, just on offering the vehicle at all"
+      ]
+    },
+    retire_np_growing: {
+      plan: "403(b) or Safe Harbor 401(k)",
+      track: "retirement",
+      title: "403(b) with a match, or Safe Harbor 401(k)",
+      why: "Once you're ready to actually fund a match, the deferral-only 403(b) advantage goes away, and the real choice is between a matched 403(b) (the familiar nonprofit-sector default) and a Safe Harbor 401(k) (not restricted from nonprofits, just less commonly used by them).",
+      features: [
+        "Both offer the same 2026 employee deferral limit: $24,500",
+        "403(b) is the more familiar vehicle to nonprofit staff and vendors \u2014 TIAA and similar providers are built around it",
+        "Safe Harbor 401(k) offers the same automatic nondiscrimination protection it does for for-profits"
+      ],
+      watch: [
+        "A matched 403(b) is an ERISA plan with fiduciary obligations \u2014 the \u201cnonprofits get it easier\u201d reputation mostly applies to deferral-only plans, not matched ones"
+      ]
+    },
+    retire_np_upper: {
+      plan: "403(b) or 401(k)",
+      track: "retirement",
+      title: "403(b) or 401(k) with dedicated administration",
+      why: "At this size a nonprofit is usually running a real retirement program either way \u2014 403(b) if you want the sector-standard vehicle and provider relationships, 401(k) if you'd rather have the plan design flexibility that's more standard in that world.",
+      features: [
+        "Dedicated third-party administration becomes worth the cost at this scale for either plan type",
+        "Still technically under the 100-employee SIMPLE IRA cap, though SIMPLE rarely makes sense once you're funding a real match at this size"
+      ],
+      watch: [
+        "Whichever you choose, budget for annual compliance work \u2014 Form 5500 filing and, depending on plan design, an annual audit"
+      ]
+    },
+    retire_np_large: {
+      plan: "403(b) or 401(k)",
+      track: "retirement",
+      title: "403(b) or 401(k) at full ERISA scale",
+      why: "At 100+ employees, you're running full-scale retirement benefits regardless of vehicle. The choice between 403(b) and 401(k) comes down to provider relationships and plan design preference more than cost or compliance burden \u2014 both carry similar administrative weight at this size.",
+      features: [
+        "Full 2026 contribution room available either way: $24,500 employee deferral, up to $72,000 total",
+        "403(b) keeps you in the familiar nonprofit-sector ecosystem; 401(k) opens up a broader range of plan administrators and investment platforms"
+      ],
+      watch: [
+        "An annual plan audit is very likely required at this scale \u2014 factor that into the administrative cost comparison, not just recordkeeping fees"
+      ]
+    }
+  };
+
+  var retirementResultMap = {
+    forprofit: {
+      under25: "retire_fp_micro",
+      "26to50": "retire_fp_growing",
+      "51to100": "retire_fp_upper",
+      over100: "retire_fp_large"
+    },
+    nonprofit: {
+      under25: "retire_np_micro",
+      "26to50": "retire_np_growing",
+      "51to100": "retire_np_upper",
+      over100: "retire_np_large"
+    }
+  };
+
+  Object.keys(results).forEach(function(k) {
+    if (!results[k].track) { results[k].track = "health"; }
+  });
+
+  var stage = document.getElementById('stage');
+  var railList = document.getElementById('railList');
+  var restartBtn = document.getElementById('restartBtn');
+
+  var history = []; // {questionId, questionText, tag, answerLabel}
+  var currentId = 'intro';
+  var motivation = null; // 'retention' | 'compliance' | 'both' | null
+  var estimatedFTE = null; // floored whole-number FTE used for branching
+  var estimatedFTEDisplay = null; // one-decimal FTE shown to the visitor
+  var topic = null; // 'health' | 'retirement' | 'both' | null
+  var orgType = null; // 'forprofit' | 'nonprofit' | null
+  var healthStarted = false;
+  var retirementStarted = false;
+  var collectedResultKeys = []; // ordered list of result keys reached this session
+  var lead = null; // { name, company, email, phone } once the gate is submitted
+
+  function renderRail() {
+    if (history.length === 0) {
+      railList.innerHTML = '<div class="rail-empty">Answers will appear here as you go.</div>';
+      restartBtn.style.display = 'none';
+      return;
+    }
+    var html = '';
+    var fteQuestionIds = { q_fte: true, q_fte_calc: true };
+    history.forEach(function(h) {
+      var cls = fteQuestionIds[h.questionId] ? 'rail-item fte-highlight' : 'rail-item';
+      html += '<div class="' + cls + '"><div class="q">' + h.questionText + '</div><div class="a">' + h.answerLabel + '</div></div>';
+    });
+    railList.innerHTML = html;
+    restartBtn.style.display = 'inline-block';
+  }
+
+  function renderQuestion(nodeId) {
+    var node = tree[nodeId];
+    var html = '<div class="question">';
+    html += '<div class="step-tag">' + node.tag + '</div>';
+    html += '<h2>' + node.question + '</h2>';
+    if (node.note) {
+      html += '<p class="intro-note">' + node.note + '</p>';
+    }
+    html += '<div class="options">';
+    node.options.forEach(function(opt, i) {
+      html += '<button class="option-btn" data-index="' + i + '">' + opt.label + '</button>';
+    });
+    html += '</div>';
+    html += '<div class="nav-row"><button class="back-btn" id="backBtn"' + (history.length === 0 ? ' disabled' : '') + '>\u2190 Back</button><span></span></div>';
+    html += '</div>';
+    stage.innerHTML = html;
+
+    var buttons = stage.querySelectorAll('.option-btn');
+    buttons.forEach(function(btn) {
+      btn.addEventListener('click', function() {
+        var idx = parseInt(btn.getAttribute('data-index'), 10);
+        var opt = node.options[idx];
+        if (opt.motivation) { motivation = opt.motivation; }
+        if (opt.topic) { topic = opt.topic; }
+        if (opt.orgType) { orgType = opt.orgType; }
+        var nextId = opt.next;
+        if (opt.census) {
+          var mapped = retirementResultMap[orgType] && retirementResultMap[orgType][opt.census];
+          if (mapped) { nextId = 'RESULT:' + mapped; }
+        }
+        history.push({
+          questionId: nodeId,
+          questionText: node.question,
+          tag: node.tag,
+          answerLabel: opt.label
+        });
+        renderRail();
+        goTo(nextId);
+      });
+    });
+
+    var backBtn = document.getElementById('backBtn');
+    backBtn.addEventListener('click', function() {
+      if (history.length === 0) return;
+      var last = history.pop();
+      renderRail();
+      goTo(last.questionId);
+    });
+  }
+
+  function renderCalc(nodeId) {
+    var node = tree[nodeId];
+    var selectedMonths = node.defaultMonths;
+
+    var html = '<div class="question">';
+    html += '<div class="step-tag">' + node.tag + '</div>';
+    html += '<h2>' + node.question + '</h2>';
+    if (node.note) {
+      html += '<p class="intro-note">' + node.note + '</p>';
+    }
+    html += '<div class="calc-block">';
+    html += '<div class="calc-label">Period to use</div>';
+    html += '<div class="period-row">';
+    node.periodOptions.forEach(function(p) {
+      var active = p.months === selectedMonths ? ' active' : '';
+      html += '<button type="button" class="period-btn' + active + '" data-months="' + p.months + '">' + p.label + '</button>';
+    });
+    html += '</div>';
+    html += '<label class="calc-label" for="hoursInput">Total combined hours worked, all employees</label>';
+    html += '<input type="number" min="0" step="1" inputmode="numeric" id="hoursInput" class="hours-input" placeholder="e.g. 48,000">';
+    html += '<div class="calc-error" id="calcError" style="display:none;"></div>';
+    html += '<button type="button" class="option-btn calc-submit" id="calcSubmit">Calculate my FTE</button>';
+    html += '</div>';
+    html += '<div class="nav-row"><button class="back-btn" id="backBtn"' + (history.length === 0 ? ' disabled' : '') + '>\u2190 Back</button><span></span></div>';
+    html += '</div>';
+    stage.innerHTML = html;
+
+    var periodBtns = stage.querySelectorAll('.period-btn');
+    periodBtns.forEach(function(btn) {
+      btn.addEventListener('click', function() {
+        selectedMonths = parseInt(btn.getAttribute('data-months'), 10);
+        periodBtns.forEach(function(b) { b.classList.remove('active'); });
+        btn.classList.add('active');
+      });
+    });
+
+    var errorEl = document.getElementById('calcError');
+    document.getElementById('calcSubmit').addEventListener('click', function() {
+      var raw = document.getElementById('hoursInput').value;
+      var hours = parseFloat(raw);
+      if (!raw || isNaN(hours) || hours <= 0) {
+        errorEl.textContent = 'Enter the total combined hours as a number greater than 0.';
+        errorEl.style.display = 'block';
+        return;
+      }
+      errorEl.style.display = 'none';
+
+      var divisor = 2080 * (selectedMonths / 12);
+      var rawFte = hours / divisor;
+      var display = Math.round(rawFte * 10) / 10;
+      var floored = Math.floor(rawFte);
+
+      estimatedFTE = floored;
+      estimatedFTEDisplay = display;
+
+      history.push({
+        questionId: nodeId,
+        questionText: node.question,
+        tag: node.tag,
+        answerLabel: '\u2248 ' + display + ' FTEs (' + hours.toLocaleString() + ' hrs over ' + selectedMonths + ' mo)'
+      });
+      renderRail();
+      goTo(floored >= 50 ? 'q_group_large' : 'q_group_small');
+    });
+
+    var backBtn = document.getElementById('backBtn');
+    backBtn.addEventListener('click', function() {
+      if (history.length === 0) return;
+      var last = history.pop();
+      renderRail();
+      goTo(last.questionId);
+    });
+  }
+
+  function resultBlockHTML(resultKey, multi) {
+    var r = results[resultKey];
+    var html = '<div class="result-block">';
+    html += multi ? ('<h3>' + r.title + '</h3>') : ('<h2>' + r.title + '</h2>');
+    if (r.track === 'health' && estimatedFTEDisplay !== null) {
+      html += '<p class="fte-note">Based on the hours you entered, that works out to roughly <strong>' + estimatedFTEDisplay + ' FTEs</strong>.</p>';
+    }
+    var hook = (motivation && r.hooks && r.hooks[motivation]) ? r.hooks[motivation] : null;
+    if (hook) {
+      html += '<p class="hook">' + hook + '</p>';
+    }
+    html += '<p class="why">' + r.why + '</p>';
+    html += '<div class="cols">';
+    html += '<div class="col features"><h3>Key features</h3><ul>';
+    r.features.forEach(function(f) { html += '<li>' + f + '</li>'; });
+    html += '</ul></div>';
+    html += '<div class="col watch"><h3>Watch for</h3><ul>';
+    r.watch.forEach(function(w) { html += '<li>' + w + '</li>'; });
+    html += '</ul></div>';
+    html += '</div>';
+    html += '</div>';
+    return html;
+  }
+
+  function attachSimpleBack() {
+    var backBtn = document.getElementById('backBtn');
+    if (!backBtn) return;
+    backBtn.addEventListener('click', function() {
+      if (history.length === 0) return;
+      if (collectedResultKeys.length > 0) { collectedResultKeys.pop(); }
+      var last = history.pop();
+      renderRail();
+      goTo(last.questionId);
+    });
+  }
+
+  function reachedResult(resultKey) {
+    collectedResultKeys.push(resultKey);
+    var r = results[resultKey];
+    var otherAvailable = (r.track === 'health' && !retirementStarted) || (r.track === 'retirement' && !healthStarted);
+    if (otherAvailable) {
+      renderCrossTrackPrompt(r.track);
+    } else {
+      renderGate();
+    }
+  }
+
+  function renderCrossTrackPrompt(finishedTrack) {
+    var otherLabel = finishedTrack === 'health' ? 'retirement' : 'health';
+    var otherTarget = finishedTrack === 'health' ? 'r_profit' : 'intro';
+    var html = '<div class="question">';
+    html += '<div class="step-tag">Almost there</div>';
+    html += '<h2>Want to check your ' + otherLabel + ' options too?</h2>';
+    html += '<p class="intro-note">You can look at both before you see your results, or wrap up with just this one.</p>';
+    html += '<div class="options">';
+    html += '<button type="button" class="option-btn" id="crossYes">Yes, show me ' + otherLabel + ' too</button>';
+    html += '<button type="button" class="option-btn" id="crossNo">No, I\u2019m ready for my results</button>';
+    html += '</div>';
+    html += '<div class="nav-row"><button class="back-btn" id="backBtn"' + (history.length === 0 ? ' disabled' : '') + '>\u2190 Back</button><span></span></div>';
+    html += '</div>';
+    stage.innerHTML = html;
+
+    document.getElementById('crossYes').addEventListener('click', function() { goTo(otherTarget); });
+    document.getElementById('crossNo').addEventListener('click', function() { renderGate(); });
+    attachSimpleBack();
+  }
+
+  function renderGate() {
+    var html = '<div class="question">';
+    html += '<div class="step-tag">One last step</div>';
+    html += '<h2>Where should we send your results?</h2>';
+    html += '<p class="intro-note">Fill this in once and we\u2019ll email you everything you\u2019ve gone through today.</p>';
+    html += '<div class="calc-block">';
+    html += '<label class="calc-label" for="leadName">Name</label>';
+    html += '<input type="text" id="leadName" class="hours-input" style="max-width:320px;" value="' + (lead ? lead.name : '') + '">';
+    html += '<label class="calc-label" for="leadCompany">Company / organization</label>';
+    html += '<input type="text" id="leadCompany" class="hours-input" style="max-width:320px;" value="' + (lead ? lead.company : '') + '">';
+    html += '<label class="calc-label" for="leadEmail">Work email</label>';
+    html += '<input type="email" id="leadEmail" class="hours-input" style="max-width:320px;" value="' + (lead ? lead.email : '') + '">';
+    html += '<label class="calc-label" for="leadPhone">Phone (optional)</label>';
+    html += '<input type="tel" id="leadPhone" class="hours-input" style="max-width:320px;" value="' + (lead ? lead.phone : '') + '">';
+    html += '<p class="followup-note">A member of the StopLosingTalent team will follow up shortly to help you act on your results.</p>';
+    html += '<div class="calc-error" id="gateError" style="display:none;"></div>';
+    html += '<button type="button" class="option-btn calc-submit" id="gateSubmit">Show my results</button>';
+    html += '</div>';
+    html += '<div class="nav-row"><button class="back-btn" id="backBtn"' + (history.length === 0 ? ' disabled' : '') + '>\u2190 Back</button><span></span></div>';
+    html += '</div>';
+    stage.innerHTML = html;
+
+    var errorEl = document.getElementById('gateError');
+    document.getElementById('gateSubmit').addEventListener('click', function() {
+      var name = document.getElementById('leadName').value.trim();
+      var company = document.getElementById('leadCompany').value.trim();
+      var email = document.getElementById('leadEmail').value.trim();
+      var phone = document.getElementById('leadPhone').value.trim();
+      var emailOk = /\S+@\S+\.\S+/.test(email);
+
+      if (!name || !company || !emailOk) {
+        errorEl.textContent = 'Please fill in your name, company, and a valid email.';
+        errorEl.style.display = 'block';
+        return;
+      }
+      errorEl.style.display = 'none';
+
+      lead = { name: name, company: company, email: email, phone: phone };
+      renderFinalResults();
+    });
+
+    attachSimpleBack();
+  }
+
+  function buildMailtoHref() {
+    var to = 'info@stoplosingtalent.com';
+    var subject = 'Benefit Plan Finder results for ' + (lead.company || lead.name);
+    var lines = [];
+    lines.push('Contact');
+    lines.push('Name: ' + lead.name);
+    lines.push('Company: ' + lead.company);
+    lines.push('Email: ' + lead.email);
+    lines.push('Phone: ' + (lead.phone || 'Not provided'));
+    lines.push('');
+    lines.push('Follow-up: a team member should reach out to help with next steps.');
+    lines.push('');
+    collectedResultKeys.forEach(function(key) {
+      var r = results[key];
+      lines.push(r.title);
+      lines.push(r.why);
+      lines.push('');
+    });
+    lines.push('(Sent from the StopLosingTalent Benefit Plan Finder)');
+    var body = lines.join('\r\n');
+    return 'mailto:' + to + '?cc=' + encodeURIComponent(lead.email) + '&subject=' + encodeURIComponent(subject) + '&body=' + encodeURIComponent(body);
+  }
+
+  function renderFinalResults() {
+    var multi = collectedResultKeys.length > 1;
+    var html = '<div class="result">';
+    html += '<div class="result-kicker">Your recommended direction' + (multi ? 's' : '') + '</div>';
+    collectedResultKeys.forEach(function(key, idx) {
+      html += resultBlockHTML(key, multi);
+      if (idx < collectedResultKeys.length - 1) { html += '<hr class="result-divider">'; }
+    });
+    html += '<div class="disclaimer">This is a starting point based on general federal rules, not a final determination. FTE counts, plan affordability, and class design should be confirmed with a qualified advisor before you adopt any plan.</div>';
+    html += '<a class="option-btn bridge-btn" href="' + buildMailtoHref() + '">Email the results</a>';
+    html += '<div class="nav-row"><button class="back-btn" id="editInfoBtn">Edit your info</button><span></span></div>';
+    html += '</div>';
+    stage.innerHTML = html;
+
+    document.getElementById('editInfoBtn').addEventListener('click', function() { renderGate(); });
+  }
+
+  function goTo(id) {
+    currentId = id;
+    if (id === 'intro') { healthStarted = true; }
+    if (id === 'r_profit') { retirementStarted = true; }
+    if (id.indexOf('RESULT:') === 0) {
+      reachedResult(id.substring(7));
+    } else if (tree[id] && tree[id].type === 'calc') {
+      renderCalc(id);
+    } else {
+      renderQuestion(id);
+    }
+  }
+
+  restartBtn.addEventListener('click', function() {
+    history = [];
+    motivation = null;
+    estimatedFTE = null;
+    estimatedFTEDisplay = null;
+    topic = null;
+    orgType = null;
+    healthStarted = false;
+    retirementStarted = false;
+    collectedResultKeys = [];
+    lead = null;
+    renderRail();
+    goTo('topic_select');
+  });
+
+  renderRail();
+  goTo('topic_select');
+})();
+</script>
+</body>
+</html>
