@@ -1,0 +1,713 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <title>Retirement Plan Diagnostic | Stop Losing Talent</title>
+    <meta
+      name="description"
+      content="A guided retirement benefit diagnostic for small and midsized employers."
+    />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Manrope:wght@600;700;800&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      :root {
+        --night: #17213f;
+        --paper: #f5f3ec;
+        --coral: #6f4b8b;
+        --aqua: #9aaa91;
+        --gold: #c6a052;
+        --ink: #20283f;
+      }
+      * {
+        box-sizing: border-box;
+      }
+      body {
+        margin: 0;
+        background: var(--paper);
+        color: var(--ink);
+        font:
+          16px/1.5 "DM Sans",
+          sans-serif;
+      }
+      .app {
+        min-height: 100vh;
+        display: grid;
+        grid-template-columns: minmax(300px, 34vw) 1fr;
+      }
+      .rail {
+        position: sticky;
+        top: 0;
+        height: 100vh;
+        padding: 38px clamp(28px, 4vw, 64px);
+        background: var(--night);
+        color: #fff;
+        display: flex;
+        flex-direction: column;
+      }
+      .brand {
+        font:
+          800 1.18rem Manrope,
+          sans-serif;
+        letter-spacing: -0.04em;
+        text-decoration: none;
+        color: #fff;
+      }
+      .brand span {
+        color: var(--coral);
+      }
+      .rail h1 {
+        font:
+          800 clamp(2.5rem, 4.4vw, 4.5rem)/0.98 Manrope,
+          sans-serif;
+        letter-spacing: -0.055em;
+        margin: clamp(55px, 10vh, 105px) 0 20px;
+      }
+      .rail p {
+        color: #bdc6d2;
+      }
+      .progress {
+        margin-top: 35px;
+        color: #8694a7;
+        font-weight: 700;
+      }
+      .progress b {
+        color: var(--aqua);
+        font:
+          800 2.2rem Manrope,
+          sans-serif;
+        display: block;
+      }
+      .profile {
+        margin-top: auto;
+        border-top: 1px solid rgba(255, 255, 255, 0.15);
+        padding-top: 22px;
+      }
+      .profile small {
+        color: #7f8da0;
+        text-transform: uppercase;
+        letter-spacing: 0.1em;
+      }
+      .profile strong {
+        display: block;
+        color: #fff;
+        margin-top: 6px;
+      }
+      .stage {
+        display: flex;
+        flex-direction: column;
+        min-width: 0;
+      }
+      .top {
+        height: 76px;
+        padding: 0 clamp(26px, 5vw, 78px);
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        border-bottom: 1px solid rgba(17, 27, 41, 0.14);
+      }
+      .top a {
+        color: inherit;
+        text-decoration: none;
+        font-weight: 700;
+      }
+      .workspace {
+        width: min(900px, calc(100% - 52px));
+        margin: auto;
+        padding: 60px 0;
+      }
+      .scene,
+      .result {
+        display: none;
+      }
+      .scene.active,
+      .result.active {
+        display: block;
+      }
+      .q {
+        font:
+          800 0.78rem Manrope,
+          sans-serif;
+        text-transform: uppercase;
+        letter-spacing: 0.13em;
+        color: var(--coral);
+      }
+      h2 {
+        font:
+          800 clamp(2.7rem, 5vw, 5rem)/1.02 Manrope,
+          sans-serif;
+        letter-spacing: -0.055em;
+        margin: 13px 0 17px;
+      }
+      .context {
+        color: #5a6675;
+        font-size: 1.04rem;
+      }
+      .options {
+        margin-top: 32px;
+        border-top: 1px solid rgba(17, 27, 41, 0.22);
+      }
+      button.option {
+        width: 100%;
+        padding: 19px 8px;
+        border: 0;
+        border-bottom: 1px solid rgba(17, 27, 41, 0.22);
+        background: transparent;
+        color: inherit;
+        text-align: left;
+        cursor: pointer;
+        display: grid;
+        grid-template-columns: 38px 1fr;
+        gap: 13px;
+        align-items: center;
+      }
+      .option:hover,
+      .option.selected {
+        background: #fff;
+        padding-left: 18px;
+      }
+      .option.selected {
+        background: var(--night);
+        color: #fff;
+      }
+      .letter {
+        width: 29px;
+        height: 29px;
+        border: 1px solid currentColor;
+        border-radius: 50%;
+        display: grid;
+        place-items: center;
+        font-size: 0.73rem;
+        font-weight: 800;
+      }
+      .option strong {
+        display: block;
+        font:
+          800 1.05rem Manrope,
+          sans-serif;
+      }
+      .option small {
+        color: #657182;
+      }
+      .option.selected small {
+        color: #bbc4cf;
+      }
+      .actions {
+        display: flex;
+        justify-content: space-between;
+        margin-top: 28px;
+      }
+      .button {
+        border: 0;
+        background: var(--coral);
+        color: #fff;
+        padding: 14px 21px;
+        font-weight: 800;
+        cursor: pointer;
+        text-decoration: none;
+        display: inline-block;
+      }
+      .button:disabled {
+        opacity: 0.3;
+      }
+      .button.back {
+        background: transparent;
+        color: var(--ink);
+        padding-left: 0;
+      }
+      .recommendation {
+        font:
+          800 clamp(3.6rem, 8vw, 8rem)/0.9 Manrope,
+          sans-serif;
+        letter-spacing: -0.07em;
+        color: var(--night);
+        margin: 20px 0;
+      }
+      .lede {
+        font-size: 1.16rem;
+        color: #4c5968;
+      }
+      .brief {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 30px;
+        margin-top: 32px;
+      }
+      .brief h3 {
+        text-transform: uppercase;
+        letter-spacing: 0.08em;
+        font-size: 0.85rem;
+      }
+      .brief ul {
+        list-style: none;
+        padding: 0;
+      }
+      .brief li {
+        border-top: 1px solid rgba(17, 27, 41, 0.16);
+        padding: 10px 0;
+      }
+      .alt {
+        padding: 18px;
+        background: #e7ece2;
+        border-left: 6px solid var(--aqua);
+        margin: 26px 0;
+      }
+      .disclaimer {
+        font-size: 0.82rem;
+        color: #707b88;
+        border-top: 1px solid rgba(17, 27, 41, 0.16);
+        padding-top: 18px;
+      }
+      .sources a {
+        color: inherit;
+      }
+      @media (max-width: 850px) {
+        .app {
+          grid-template-columns: 1fr;
+        }
+        .rail {
+          position: relative;
+          height: auto;
+        }
+        .rail h1 {
+          margin-top: 40px;
+        }
+        .profile {
+          margin-top: 28px;
+        }
+        .workspace {
+          padding: 48px 0 70px;
+        }
+      }
+      @media (max-width: 560px) {
+        .workspace {
+          width: calc(100% - 34px);
+        }
+        .brief {
+          grid-template-columns: 1fr;
+        }
+        h2 {
+          font-size: 3rem;
+        }
+        .recommendation {
+          font-size: 3.5rem;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <main class="app">
+      <aside class="rail">
+        <a class="brand" href="index.html">STOP LOSING <span>TALENT.</span></a>
+        <h1>Build a retirement benefit people can value.</h1>
+        <p>
+          Four questions identify the structure worth pricing and reviewing
+          first.
+        </p>
+        <div class="progress">
+          <b id="step-count">01</b><span id="step-label">Workforce</span>
+        </div>
+        <div class="profile">
+          <small>Current direction</small
+          ><strong id="profile">Waiting for your answers</strong>
+        </div>
+      </aside>
+      <section class="stage">
+        <div class="top">
+          <a href="diagnostic.html">← Choose another benefit</a
+          ><span>Retirement plan fit</span>
+        </div>
+        <div class="workspace">
+          <section class="scene active" data-step="0">
+            <div class="q">Question one · workforce</div>
+            <h2>Who needs to participate?</h2>
+            <p class="context">
+              Owner-only plans work differently from plans that must cover
+              eligible employees.
+            </p>
+            <div class="options" data-key="team">
+              <button class="option" data-value="owner">
+                <span class="letter">A</span
+                ><span
+                  ><strong>Owner only—or owner and spouse</strong
+                  ><small>No common-law employees need coverage</small></span
+                ></button
+              ><button class="option" data-value="small">
+                <span class="letter">B</span
+                ><span
+                  ><strong>1–25 employees</strong
+                  ><small>A small employee population needs access</small></span
+                ></button
+              ><button class="option" data-value="larger">
+                <span class="letter">C</span
+                ><span
+                  ><strong>26–100 employees</strong
+                  ><small
+                    >Broader participation and administration matter</small
+                  ></span
+                ></button
+              ><button class="option" data-value="over100">
+                <span class="letter">D</span
+                ><span
+                  ><strong>More than 100 employees</strong
+                  ><small>SIMPLE eligibility limitations may apply</small></span
+                >
+              </button>
+            </div>
+            <div class="actions">
+              <span></span><button class="button next" disabled>Next →</button>
+            </div>
+          </section>
+          <section class="scene" data-step="1">
+            <div class="q">Question two · funding</div>
+            <h2>Who should control the contribution?</h2>
+            <p class="context">
+              Employee salary deferrals support engagement; employer-only
+              funding offers a different kind of flexibility.
+            </p>
+            <div class="options" data-key="funding">
+              <button class="option" data-value="employees">
+                <span class="letter">A</span
+                ><span
+                  ><strong>Employees should contribute through payroll</strong
+                  ><small>The employer can match or contribute too</small></span
+                ></button
+              ><button class="option" data-value="employer">
+                <span class="letter">B</span
+                ><span
+                  ><strong>Employer-funded only</strong
+                  ><small
+                    >The business decides whether and how much to
+                    contribute</small
+                  ></span
+                ></button
+              ><button class="option" data-value="both">
+                <span class="letter">C</span
+                ><span
+                  ><strong>Both, with maximum design flexibility</strong
+                  ><small
+                    >Employee deferrals plus employer contributions</small
+                  ></span
+                >
+              </button>
+            </div>
+            <div class="actions">
+              <button class="button back">← Back</button
+              ><button class="button next" disabled>Next →</button>
+            </div>
+          </section>
+          <section class="scene" data-step="2">
+            <div class="q">Question three · objective</div>
+            <h2>What matters most?</h2>
+            <p class="context">
+              Choose the primary objective; the result will identify another
+              structure worth comparing.
+            </p>
+            <div class="options" data-key="goal">
+              <button class="option" data-value="simple">
+                <span class="letter">A</span
+                ><span
+                  ><strong>Lowest administrative burden</strong
+                  ><small
+                    >Keep setup and ongoing work relatively light</small
+                  ></span
+                ></button
+              ><button class="option" data-value="recruit">
+                <span class="letter">B</span
+                ><span
+                  ><strong>A competitive recruiting benefit</strong
+                  ><small
+                    >Give employees a familiar payroll-deferral
+                    experience</small
+                  ></span
+                ></button
+              ><button class="option" data-value="owner">
+                <span class="letter">C</span
+                ><span
+                  ><strong>Maximize owner retirement savings</strong
+                  ><small
+                    >Seek higher contribution potential and design
+                    flexibility</small
+                  ></span
+                ></button
+              ><button class="option" data-value="predictable">
+                <span class="letter">D</span
+                ><span
+                  ><strong>Predictable employer cost</strong
+                  ><small
+                    >Know the required contribution formula in advance</small
+                  ></span
+                >
+              </button>
+            </div>
+            <div class="actions">
+              <button class="button back">← Back</button
+              ><button class="button next" disabled>Next →</button>
+            </div>
+          </section>
+          <section class="scene" data-step="3">
+            <div class="q">Question four · commitment</div>
+            <h2>How much administration can the plan support?</h2>
+            <p class="context">
+              Greater flexibility generally brings more testing, reporting,
+              notices, or fiduciary responsibility.
+            </p>
+            <div class="options" data-key="admin">
+              <button class="option" data-value="low">
+                <span class="letter">A</span
+                ><span
+                  ><strong>Keep it lean</strong
+                  ><small
+                    >Prefer fewer ongoing plan-administration demands</small
+                  ></span
+                ></button
+              ><button class="option" data-value="moderate">
+                <span class="letter">B</span
+                ><span
+                  ><strong>Some administration is acceptable</strong
+                  ><small
+                    >Balanced flexibility and operating effort</small
+                  ></span
+                ></button
+              ><button class="option" data-value="high">
+                <span class="letter">C</span
+                ><span
+                  ><strong>Use a full-service administrator</strong
+                  ><small
+                    >Design flexibility justifies more support</small
+                  ></span
+                >
+              </button>
+            </div>
+            <div class="actions">
+              <button class="button back">← Back</button
+              ><button class="button" id="result-button" disabled>
+                Build my direction →
+              </button>
+            </div>
+          </section>
+          <section class="result" id="result">
+            <div class="q">Strongest starting direction</div>
+            <h2 class="recommendation" id="result-title"></h2>
+            <p class="lede" id="result-summary"></p>
+            <div class="brief">
+              <div>
+                <h3>Why it fits</h3>
+                <ul id="why"></ul>
+              </div>
+              <div>
+                <h3>Verify before adopting</h3>
+                <ul id="verify"></ul>
+              </div>
+            </div>
+            <div class="alt" id="alternative"></div>
+            <div class="alt">
+              <strong id="other-question"
+                >Would you like to explore another retention track?</strong
+              ><br /><span id="other-note"
+                >Your retirement result will remain available while you
+                continue.</span
+              >
+            </div>
+            <div class="actions">
+              <a class="button" id="other-path" href="benefits.html"
+                >Explore health benefits →</a
+              ><a class="button" href="workplace.html"
+                >Explore workplace & management →</a
+              ><a class="button" href="results.html" id="send-results"
+                >Continue to my results</a
+              ><button class="button back" id="restart">Start over</button>
+            </div>
+            <p class="disclaimer sources">
+              Educational screening only—not legal, tax, investment, actuarial,
+              or fiduciary advice. Plan eligibility, limits, tax credits,
+              required coverage, and deadlines must be confirmed for the plan
+              year. Sources:
+              <a href="https://www.irs.gov/publications/p560"
+                >IRS Publication 560</a
+              >
+              and
+              <a
+                href="https://www.dol.gov/agencies/ebsa/about-ebsa/our-activities/resource-center/publications/choosing-a-retirement-solution-for-your-small-business"
+                >U.S. Department of Labor plan guide</a
+              >.
+            </p>
+          </section>
+        </div>
+      </section>
+    </main>
+    <script>
+      const answers = {};
+      let current = 0;
+      const scenes = [...document.querySelectorAll(".scene")],
+        labels = ["Workforce", "Funding", "Objective", "Administration"];
+      function show(i) {
+        current = i;
+        scenes.forEach((s, n) => s.classList.toggle("active", n === i));
+        document.getElementById("result").classList.remove("active");
+        document.getElementById("step-count").textContent = String(
+          i + 1,
+        ).padStart(2, "0");
+        document.getElementById("step-label").textContent = labels[i];
+        window.scrollTo({ top: 0, behavior: "smooth" });
+      }
+      document.querySelectorAll(".options").forEach((g) =>
+        g.addEventListener("click", (e) => {
+          const b = e.target.closest(".option");
+          if (!b) return;
+          g.querySelectorAll(".option").forEach((x) =>
+            x.classList.remove("selected"),
+          );
+          b.classList.add("selected");
+          answers[g.dataset.key] = b.dataset.value;
+          g.closest(".scene").querySelector(".next,#result-button").disabled =
+            false;
+          document.getElementById("profile").textContent = "Profile building…";
+        }),
+      );
+      document
+        .querySelectorAll(".next")
+        .forEach((b) => (b.onclick = () => show(current + 1)));
+      document.querySelectorAll(".back").forEach((b) => {
+        if (b.id !== "restart") b.onclick = () => show(current - 1);
+      });
+      function decide() {
+        let title, summary, why, verify, alt;
+        if (answers.team === "owner") {
+          title = "OWNER-ONLY 401(k)";
+          summary =
+            "An owner-only 401(k) is the strongest starting comparison when no common-law employees require coverage and the goal includes meaningful owner deferrals or contributions.";
+          why = [
+            "Supports employee deferrals and employer contributions for the eligible owner.",
+            "Often provides more contribution flexibility than an employer-only SEP.",
+          ];
+          verify = [
+            "Confirm there are no eligible common-law employees.",
+            "Model compensation, contribution limits, filing obligations, and deadlines.",
+          ];
+          alt =
+            "Also compare: SEP IRA when employer-only funding and lighter administration matter more.";
+        } else if (
+          answers.funding === "employer" &&
+          answers.goal === "simple"
+        ) {
+          title = "SEP IRA";
+          summary =
+            "A SEP IRA is the clearest starting direction when the employer wants discretionary employer-only contributions and relatively light administration.";
+          why = [
+            "Employer controls whether to contribute each year.",
+            "Setup and operating demands can be lower than a conventional qualified plan.",
+          ];
+          verify = [
+            "Eligible employees generally receive the same contribution percentage as the owner.",
+            "Model the total employee cost before choosing the contribution rate.",
+          ];
+          alt =
+            "Also compare: profit-sharing 401(k) when allocation flexibility is worth additional administration.";
+        } else if (answers.team !== "over100" && answers.admin === "low") {
+          title = "SIMPLE IRA";
+          summary =
+            "A SIMPLE IRA is a practical starting direction for an employer with 100 or fewer employees that wants payroll deferrals without full 401(k) complexity.";
+          why = [
+            "Employees can contribute through payroll.",
+            "The employer uses a required matching or nonelective contribution formula.",
+          ];
+          verify = [
+            "Confirm the 100-employee rule and that no conflicting plan is maintained.",
+            "Review eligibility, notices, contribution formula, deposit timing, and setup deadline.",
+          ];
+          alt =
+            "Also compare: Safe Harbor 401(k) for higher limits and a more competitive recruiting story.";
+        } else if (answers.goal === "predictable" || answers.goal === "owner") {
+          title = "SAFE HARBOR 401(k)";
+          summary =
+            "A Safe Harbor 401(k) is the strongest starting comparison when recruiting value and owner participation justify a required employer contribution and professional administration.";
+          why = [
+            "Can reduce traditional 401(k) nondiscrimination-testing uncertainty when operated correctly.",
+            "Supports employee deferrals and broader plan-design features.",
+          ];
+          verify = [
+            "Price required employer contributions and third-party administration.",
+            "Confirm eligibility, vesting, notices, payroll integration, filing, and fiduciary duties.",
+          ];
+          alt =
+            "Also compare: a traditional 401(k) with profit sharing if added design flexibility is important.";
+        } else {
+          title = "TRADITIONAL 401(k)";
+          summary =
+            "A traditional 401(k) is the strongest starting direction when employees need a familiar salary-deferral benefit and the employer accepts professional administration.";
+          why = [
+            "Creates a recognizable recruiting and retention benefit.",
+            "Allows employee deferrals and optional employer contributions.",
+          ];
+          verify = [
+            "Model testing, administration, Form 5500, fiduciary duties, fees, and payroll integration.",
+            "Compare participation assumptions and Safe Harbor economics.",
+          ];
+          alt =
+            "Also compare: SIMPLE IRA if lower administrative burden matters more than maximum flexibility.";
+        }
+        document.getElementById("result-title").textContent = title;
+        document.getElementById("result-summary").textContent = summary;
+        document.getElementById("why").innerHTML = why
+          .map((x) => "<li>" + x + "</li>")
+          .join("");
+        document.getElementById("verify").innerHTML = verify
+          .map((x) => "<li>" + x + "</li>")
+          .join("");
+        document.getElementById("alternative").innerHTML =
+          "<strong>" + alt + "</strong>";
+        localStorage.setItem(
+          "slt_retirement_result",
+          JSON.stringify({
+            type: "Retirement benefits",
+            title,
+            summary,
+            why,
+            verify,
+            alternative: alt,
+            profile: {
+              Workforce: answers.team,
+              "Funding preference": answers.funding,
+              "Primary objective": answers.goal,
+              Administration: answers.admin,
+            },
+          }),
+        );
+        if (localStorage.getItem("slt_health_result")) {
+          document.getElementById("other-question").textContent =
+            "You have completed both benefit diagnostics.";
+          document.getElementById("other-note").textContent =
+            "Continue to receive your combined health and retirement results.";
+          document.getElementById("other-path").style.display = "none";
+          document.getElementById("send-results").textContent =
+            "Continue to my combined results →";
+        }
+        scenes.forEach((s) => s.classList.remove("active"));
+        document.getElementById("result").classList.add("active");
+        document.getElementById("step-count").textContent = "FIT";
+        document.getElementById("step-label").textContent = title;
+        document.getElementById("profile").textContent = title;
+        window.scrollTo({ top: 0, behavior: "smooth" });
+      }
+      document.getElementById("result-button").onclick = decide;
+      document.getElementById("restart").onclick = () => {
+        localStorage.removeItem("slt_retirement_result");
+        Object.keys(answers).forEach((k) => delete answers[k]);
+        document
+          .querySelectorAll(".option")
+          .forEach((x) => x.classList.remove("selected"));
+        document
+          .querySelectorAll(".next,#result-button")
+          .forEach((x) => (x.disabled = true));
+        document.getElementById("profile").textContent =
+          "Waiting for your answers";
+        show(0);
+      };
+    </script>
+  </body>
+</html>

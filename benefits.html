@@ -1,0 +1,1666 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <title>Benefits Decision Guide | Stop Losing Talent</title>
+    <meta
+      name="description"
+      content="A guided employer diagnostic comparing QSEHRA, ICHRA, MEC, SHOP, and group health coverage."
+    />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Manrope:wght@600;700;800&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      rel="icon"
+      type="image/svg+xml"
+      href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%2308111f'/%3E%3Cpath d='M15 33l10 10 24-25' fill='none' stroke='%236de0d7' stroke-width='7' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E"
+    />
+    <style>
+      :root {
+        --night: #17213f;
+        --paper: #f5f3ec;
+        --white: #fff;
+        --coral: #6f4b8b;
+        --aqua: #9aaa91;
+        --gold: #c6a052;
+        --ink: #20283f;
+        --line: rgba(255, 255, 255, 0.16);
+      }
+      * {
+        box-sizing: border-box;
+      }
+      html,
+      body {
+        margin: 0;
+        min-height: 100%;
+        background: var(--night);
+        font:
+          16px/1.5 "DM Sans",
+          sans-serif;
+        color: #fff;
+      }
+      button,
+      input,
+      select,
+      textarea {
+        font: inherit;
+      }
+      button {
+        color: inherit;
+      }
+      a {
+        color: inherit;
+      }
+      .app {
+        min-height: 100vh;
+        display: grid;
+        grid-template-columns: minmax(300px, 34vw) 1fr;
+      }
+      .rail {
+        position: sticky;
+        top: 0;
+        height: 100vh;
+        padding: 38px clamp(28px, 4vw, 64px);
+        background: var(--night);
+        display: flex;
+        flex-direction: column;
+        border-right: 1px solid var(--line);
+      }
+      .brand {
+        font:
+          800 1.18rem Manrope,
+          sans-serif;
+        letter-spacing: -0.04em;
+        text-decoration: none;
+      }
+      .brand span {
+        color: var(--coral);
+      }
+      .rail-title {
+        margin-top: clamp(54px, 10vh, 110px);
+      }
+      .kicker {
+        text-transform: uppercase;
+        letter-spacing: 0.14em;
+        font-weight: 800;
+        font-size: 0.75rem;
+        color: var(--aqua);
+      }
+      .rail-title h1 {
+        font:
+          800 clamp(2.4rem, 4.5vw, 4.6rem)/0.98 Manrope,
+          sans-serif;
+        letter-spacing: -0.055em;
+        margin: 14px 0 20px;
+      }
+      .rail-title p {
+        max-width: 390px;
+        color: #bdc6d2;
+        font-size: 1.02rem;
+      }
+      .step-rail {
+        margin: 38px 0 0;
+        display: grid;
+        gap: 10px;
+      }
+      .step-mark {
+        display: grid;
+        grid-template-columns: 32px 1fr;
+        align-items: center;
+        gap: 10px;
+        color: #6f7d90;
+        font-weight: 700;
+        font-size: 0.88rem;
+      }
+      .step-mark:before {
+        content: attr(data-n);
+        width: 27px;
+        height: 27px;
+        display: grid;
+        place-items: center;
+        border: 1px solid #536177;
+        border-radius: 50%;
+        font-size: 0.7rem;
+      }
+      .step-mark.active {
+        color: #fff;
+      }
+      .step-mark.active:before {
+        background: var(--coral);
+        border-color: var(--coral);
+      }
+      .step-mark.done {
+        color: #aeb9c7;
+      }
+      .step-mark.done:before {
+        content: "✓";
+        background: var(--aqua);
+        border-color: var(--aqua);
+        color: var(--night);
+      }
+      .profile {
+        margin-top: auto;
+        padding-top: 25px;
+        border-top: 1px solid var(--line);
+      }
+      .profile-head {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 13px;
+      }
+      .profile-head strong {
+        font:
+          800 0.82rem Manrope,
+          sans-serif;
+        text-transform: uppercase;
+        letter-spacing: 0.1em;
+      }
+      .profile-head span {
+        font-size: 0.77rem;
+        color: #8190a3;
+      }
+      .profile-list {
+        display: grid;
+        gap: 7px;
+      }
+      .profile-row {
+        display: flex;
+        justify-content: space-between;
+        gap: 14px;
+        font-size: 0.82rem;
+      }
+      .profile-row span {
+        color: #7f8da0;
+      }
+      .profile-row b {
+        font-weight: 600;
+        text-align: right;
+        color: #e1e6ec;
+        max-width: 62%;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+      }
+      .stage {
+        min-height: 100vh;
+        background: var(--paper);
+        color: var(--ink);
+        display: flex;
+        flex-direction: column;
+      }
+      .stage-top {
+        height: 76px;
+        padding: 0 clamp(26px, 5vw, 78px);
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        border-bottom: 1px solid rgba(17, 27, 41, 0.14);
+      }
+      .stage-top a {
+        text-decoration: none;
+        font-weight: 700;
+        font-size: 0.9rem;
+      }
+      .stage-top span {
+        font-size: 0.82rem;
+        color: #637083;
+      }
+      .workspace {
+        width: min(920px, calc(100% - 52px));
+        margin: auto;
+        padding: 62px 0;
+      }
+      .scene {
+        display: none;
+        animation: enter 0.35s ease;
+      }
+      .scene.active {
+        display: block;
+      }
+      @keyframes enter {
+        from {
+          opacity: 0;
+          transform: translateY(10px);
+        }
+        to {
+          opacity: 1;
+          transform: none;
+        }
+      }
+      .question-no {
+        font:
+          800 0.78rem Manrope,
+          sans-serif;
+        text-transform: uppercase;
+        letter-spacing: 0.13em;
+        color: var(--coral);
+      }
+      .scene h2 {
+        font:
+          800 clamp(2.45rem, 5vw, 5.3rem)/1.02 Manrope,
+          sans-serif;
+        letter-spacing: -0.055em;
+        margin: 13px 0 17px;
+        max-width: 850px;
+      }
+      .context {
+        font-size: 1.04rem;
+        color: #5a6675;
+        max-width: 720px;
+        margin: 0 0 35px;
+      }
+      .options {
+        display: grid;
+        border-top: 1px solid rgba(17, 27, 41, 0.22);
+      }
+      .option {
+        width: 100%;
+        background: transparent;
+        border: 0;
+        border-bottom: 1px solid rgba(17, 27, 41, 0.22);
+        padding: 18px 6px;
+        display: grid;
+        grid-template-columns: 42px 1fr 32px;
+        gap: 14px;
+        align-items: center;
+        text-align: left;
+        cursor: pointer;
+        transition: 0.18s;
+      }
+      .option:hover,
+      .option:focus-visible {
+        background: #fff;
+        padding-left: 16px;
+        padding-right: 16px;
+        outline: 0;
+      }
+      .option.selected {
+        background: var(--night);
+        color: #fff;
+        padding-left: 16px;
+        padding-right: 16px;
+      }
+      .letter {
+        width: 30px;
+        height: 30px;
+        display: grid;
+        place-items: center;
+        border: 1px solid currentColor;
+        border-radius: 50%;
+        font:
+          800 0.75rem Manrope,
+          sans-serif;
+      }
+      .option strong {
+        display: block;
+        font:
+          800 1.05rem Manrope,
+          sans-serif;
+      }
+      .option small {
+        display: block;
+        color: #657182;
+        margin-top: 3px;
+      }
+      .option.selected small {
+        color: #b8c2cf;
+      }
+      .arrow {
+        font-size: 1.2rem;
+      }
+      .scene-actions {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-top: 30px;
+        gap: 15px;
+      }
+      .button {
+        border: 0;
+        background: var(--coral);
+        color: #fff;
+        padding: 14px 21px;
+        font-weight: 800;
+        cursor: pointer;
+        transition: 0.18s;
+      }
+      .button:hover:not(:disabled) {
+        transform: translateY(-2px);
+        box-shadow: 5px 5px 0 var(--night);
+      }
+      .button:disabled {
+        opacity: 0.32;
+        cursor: not-allowed;
+      }
+      .button.back {
+        background: transparent;
+        color: var(--ink);
+        padding-left: 0;
+      }
+      .button.dark {
+        background: var(--night);
+      }
+      .number-box {
+        background: #fff;
+        border-left: 8px solid var(--aqua);
+        padding: 27px;
+        max-width: 560px;
+      }
+      .number-box label {
+        display: block;
+        font-weight: 800;
+        margin-bottom: 9px;
+      }
+      .number-box input {
+        width: 100%;
+        border: 0;
+        border-bottom: 3px solid var(--ink);
+        background: transparent;
+        padding: 9px 2px;
+        font:
+          800 2.3rem Manrope,
+          sans-serif;
+        color: var(--ink);
+      }
+      .number-box input:focus {
+        outline: 0;
+        border-color: var(--coral);
+      }
+      .fte-choice {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 14px;
+        margin: 30px 0;
+      }
+      .fte-choice button {
+        background: #fff;
+        color: var(--ink);
+        border: 2px solid var(--ink);
+        padding: 20px;
+        text-align: left;
+        font-weight: 800;
+        cursor: pointer;
+      }
+      .fte-choice button.selected {
+        background: var(--night);
+        color: #fff;
+      }
+      .fte-panel {
+        display: none;
+        background: #fff;
+        border-left: 8px solid var(--aqua);
+        padding: 25px;
+        margin-top: 18px;
+      }
+      .fte-panel.active {
+        display: block;
+      }
+      .fte-grid {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 16px;
+      }
+      .fte-panel label {
+        display: block;
+        font-weight: 800;
+        margin-bottom: 6px;
+      }
+      .fte-panel input,
+      .fte-panel select {
+        width: 100%;
+        padding: 12px;
+        border: 2px solid #aeb5bd;
+        background: #fff;
+        color: var(--ink);
+      }
+      .fte-output {
+        margin-top: 18px;
+        padding: 16px;
+        background: #e7ece2;
+        border-left: 5px solid var(--aqua);
+      }
+      .fte-output strong {
+        font:
+          800 1.7rem Manrope,
+          sans-serif;
+      }
+      .fte-note {
+        font-size: 0.83rem;
+        color: #697584;
+        margin-top: 12px;
+      }
+      .result {
+        display: none;
+      }
+      .result.active {
+        display: block;
+        animation: enter 0.4s ease;
+      }
+      .result-label {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        text-transform: uppercase;
+        letter-spacing: 0.13em;
+        font-weight: 800;
+        font-size: 0.76rem;
+        color: #5c6877;
+      }
+      .result-label:before {
+        content: "";
+        width: 34px;
+        height: 4px;
+        background: var(--coral);
+      }
+      .recommendation {
+        font:
+          800 clamp(4rem, 10vw, 9rem)/0.88 Manrope,
+          sans-serif;
+        letter-spacing: -0.075em;
+        margin: 22px 0;
+        color: var(--night);
+      }
+      .result-lede {
+        font-size: 1.18rem;
+        max-width: 760px;
+        color: #4c5968;
+      }
+      .signals {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        gap: 1px;
+        background: rgba(17, 27, 41, 0.2);
+        border: 1px solid rgba(17, 27, 41, 0.2);
+        margin: 34px 0;
+      }
+      .signal {
+        background: var(--paper);
+        padding: 20px;
+      }
+      .signal small {
+        display: block;
+        text-transform: uppercase;
+        letter-spacing: 0.1em;
+        color: #697584;
+        font-weight: 800;
+      }
+      .signal b {
+        display: block;
+        font:
+          800 1.2rem Manrope,
+          sans-serif;
+        margin-top: 5px;
+      }
+      .brief {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 34px;
+        margin-top: 30px;
+      }
+      .brief h3 {
+        font:
+          800 1rem Manrope,
+          sans-serif;
+        text-transform: uppercase;
+        letter-spacing: 0.08em;
+        margin: 0 0 12px;
+      }
+      .brief ul {
+        padding: 0;
+        margin: 0;
+        list-style: none;
+      }
+      .brief li {
+        padding: 10px 0 10px 22px;
+        border-top: 1px solid rgba(17, 27, 41, 0.16);
+        position: relative;
+        color: #4c5867;
+      }
+      .brief li:before {
+        content: "—";
+        position: absolute;
+        left: 0;
+        color: var(--coral);
+      }
+      .alternate {
+        margin-top: 28px;
+        padding: 20px 23px;
+        background: #e7ece2;
+        border-left: 6px solid var(--aqua);
+      }
+      .result-actions {
+        display: flex;
+        gap: 13px;
+        flex-wrap: wrap;
+        margin-top: 30px;
+      }
+      .disclaimer {
+        font-size: 0.82rem;
+        color: #707b88;
+        margin-top: 34px;
+        padding-top: 18px;
+        border-top: 1px solid rgba(17, 27, 41, 0.16);
+      }
+      dialog {
+        border: 0;
+        padding: 0;
+        width: min(780px, calc(100% - 28px));
+        max-height: 92vh;
+        background: var(--paper);
+        color: var(--ink);
+        box-shadow: 18px 18px 0 var(--coral);
+      }
+      dialog::backdrop {
+        background: rgba(8, 17, 31, 0.86);
+        backdrop-filter: blur(5px);
+      }
+      .modal {
+        padding: 38px;
+      }
+      .modal-head {
+        display: flex;
+        justify-content: space-between;
+        gap: 22px;
+        margin-bottom: 24px;
+      }
+      .modal h2 {
+        font:
+          800 clamp(2rem, 5vw, 3.3rem)/1.02 Manrope,
+          sans-serif;
+        letter-spacing: -0.05em;
+        margin: 8px 0;
+      }
+      .modal p {
+        color: #596575;
+        margin: 0;
+      }
+      .close {
+        width: 42px;
+        height: 42px;
+        border: 2px solid var(--ink);
+        background: transparent;
+        color: var(--ink);
+        font-size: 1.5rem;
+        cursor: pointer;
+      }
+      .carry {
+        background: var(--night);
+        color: #fff;
+        padding: 15px 18px;
+        margin-bottom: 22px;
+      }
+      .carry small {
+        display: block;
+        text-transform: uppercase;
+        letter-spacing: 0.1em;
+        color: #9ca9ba;
+        font-weight: 700;
+      }
+      .carry strong {
+        display: block;
+        color: var(--aqua);
+        font:
+          800 1.35rem Manrope,
+          sans-serif;
+        margin-top: 3px;
+      }
+      .form-grid {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 16px;
+      }
+      .wide {
+        grid-column: 1/-1;
+      }
+      .contact label {
+        display: block;
+        font-weight: 800;
+        margin-bottom: 6px;
+      }
+      .contact input,
+      .contact select,
+      .contact textarea {
+        width: 100%;
+        background: #fff;
+        border: 2px solid #aeb5bd;
+        color: var(--ink);
+        padding: 11px;
+      }
+      .contact textarea {
+        min-height: 96px;
+        resize: vertical;
+      }
+      .contact input:focus,
+      .contact select:focus,
+      .contact textarea:focus {
+        outline: 3px solid rgba(109, 224, 215, 0.6);
+        border-color: var(--ink);
+      }
+      .submit-line {
+        display: flex;
+        align-items: center;
+        gap: 15px;
+        margin-top: 22px;
+      }
+      .submit-line small {
+        color: #66717f;
+      }
+      .success {
+        display: none;
+        background: #e7ece2;
+        border-left: 5px solid var(--aqua);
+        padding: 13px;
+        margin-top: 15px;
+        font-weight: 700;
+      }
+      @media (max-width: 900px) {
+        .app {
+          grid-template-columns: 1fr;
+        }
+        .rail {
+          position: relative;
+          height: auto;
+          padding: 24px;
+        }
+        .rail-title {
+          margin-top: 38px;
+        }
+        .rail-title h1 {
+          font-size: 3.2rem;
+          max-width: 600px;
+        }
+        .step-rail {
+          grid-template-columns: repeat(6, 1fr);
+          margin-top: 25px;
+        }
+        .step-mark {
+          display: flex;
+          gap: 7px;
+        }
+        .step-mark span {
+          display: none;
+        }
+        .profile {
+          margin-top: 26px;
+        }
+        .profile-list {
+          grid-template-columns: 1fr 1fr;
+        }
+        .stage {
+          min-height: auto;
+        }
+        .workspace {
+          padding: 48px 0 70px;
+        }
+        .scene h2 {
+          font-size: 3.4rem;
+        }
+      }
+      @media (max-width: 600px) {
+        .stage-top {
+          padding: 0 18px;
+        }
+        .workspace {
+          width: calc(100% - 34px);
+        }
+        .rail-title h1,
+        .scene h2 {
+          font-size: 2.65rem;
+        }
+        .rail-title p {
+          font-size: 0.96rem;
+        }
+        .profile-list,
+        .fte-choice,
+        .fte-grid {
+          grid-template-columns: 1fr;
+        }
+        .option {
+          grid-template-columns: 36px 1fr 22px;
+        }
+        .option small {
+          font-size: 0.84rem;
+        }
+        .brief,
+        .signals,
+        .form-grid {
+          grid-template-columns: 1fr;
+        }
+        .wide {
+          grid-column: auto;
+        }
+        .recommendation {
+          font-size: 3.65rem;
+        }
+        .modal {
+          padding: 27px 19px;
+        }
+        .submit-line {
+          flex-direction: column;
+          align-items: stretch;
+        }
+        .submit-line .button,
+        .result-actions .button {
+          width: 100%;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <main class="app">
+      <aside class="rail">
+        <a class="brand" href="index.html">STOP LOSING <span>TALENT.</span></a>
+        <div class="rail-title">
+          <div class="kicker">Employer benefit fit</div>
+          <h1>Make the benefit decision make sense.</h1>
+          <p>
+            Six questions turn workforce facts into a practical starting
+            direction—without pretending every employer needs the same plan.
+          </p>
+        </div>
+        <div class="step-rail" aria-label="Assessment progress">
+          <div class="step-mark active" data-marker="0" data-n="01">
+            <span>FTE figure</span>
+          </div>
+          <div class="step-mark" data-marker="1" data-n="02">
+            <span>Workforce size</span>
+          </div>
+          <div class="step-mark" data-marker="2" data-n="03">
+            <span>Current benefit</span>
+          </div>
+          <div class="step-mark" data-marker="3" data-n="04">
+            <span>Priority</span>
+          </div>
+          <div class="step-mark" data-marker="4" data-n="05">
+            <span>Workforce mix</span>
+          </div>
+          <div class="step-mark" data-marker="5" data-n="06">
+            <span>Participation</span>
+          </div>
+        </div>
+        <div class="profile" aria-live="polite">
+          <div class="profile-head">
+            <strong>Employer profile</strong><span>Builds as you answer</span>
+          </div>
+          <div class="profile-list">
+            <div class="profile-row">
+              <span>FTE figure</span><b id="profile-fte">—</b>
+            </div>
+            <div class="profile-row">
+              <span>Size</span><b id="profile-size">—</b>
+            </div>
+            <div class="profile-row">
+              <span>Current</span><b id="profile-current">—</b>
+            </div>
+            <div class="profile-row">
+              <span>Priority</span><b id="profile-priority">—</b>
+            </div>
+            <div class="profile-row">
+              <span>Workforce</span><b id="profile-workforce">—</b>
+            </div>
+            <div class="profile-row">
+              <span>Participants</span><b id="profile-participants">—</b>
+            </div>
+          </div>
+        </div>
+      </aside>
+      <section class="stage">
+        <div class="stage-top">
+          <a href="diagnostic.html">← Choose another benefit</a
+          ><span id="progress-text">01 / 06</span>
+        </div>
+        <div class="workspace">
+          <section class="scene active" data-step="0">
+            <div class="question-no">Question one · FTE preparation</div>
+            <h2>Do you know your full-time-equivalent figure?</h2>
+            <p class="context">
+              Enter the figure you already use, or estimate it from a recent
+              payroll total-hours report before confirming your workforce range.
+            </p>
+            <div class="fte-choice">
+              <button type="button" data-fte-mode="known">
+                Yes—I know the figure</button
+              ><button type="button" data-fte-mode="calculate">
+                No—help me calculate it
+              </button>
+            </div>
+            <div class="fte-panel" id="known-panel">
+              <label for="known-fte"
+                >Known or previously calculated FTE figure</label
+              ><input
+                id="known-fte"
+                type="number"
+                min=".01"
+                step=".01"
+                inputmode="decimal"
+                placeholder="27"
+              />
+              <p class="fte-note">
+                Enter the figure from your payroll, benefits, accounting, or
+                compliance records.
+              </p>
+            </div>
+            <div class="fte-panel" id="calculate-panel">
+              <div class="fte-grid">
+                <div>
+                  <label for="fte-period">Payroll-report period</label
+                  ><select id="fte-period">
+                    <option value="">Select a period</option>
+                    <option value="3">Most recent 3 months</option>
+                    <option value="6">Most recent 6 months</option>
+                    <option value="9">Most recent 9 months</option>
+                    <option value="12">Most recent 12 months</option>
+                  </select>
+                </div>
+                <div>
+                  <label for="fte-hours">Total paid hours in that report</label
+                  ><input
+                    id="fte-hours"
+                    type="number"
+                    min="1"
+                    step=".01"
+                    inputmode="decimal"
+                    placeholder="46800"
+                  />
+                </div>
+              </div>
+              <div class="fte-output" id="fte-output" hidden>
+                <span>Planning estimate</span><strong id="fte-result"></strong>
+                <div id="fte-formula"></div>
+              </div>
+              <p class="fte-note">
+                Calculation: total hours ÷ the proportional share of 2,080
+                annual hours. This is a general planning estimate. ACA
+                large-employer status uses a separate month-by-month method, and
+                the small-business health-care tax credit applies additional
+                employee-level rules.
+              </p>
+            </div>
+            <div class="scene-actions">
+              <span></span
+              ><button class="button next" id="fte-next" disabled>
+                Confirm workforce range →
+              </button>
+            </div>
+          </section>
+          <section class="scene" data-step="1">
+            <div class="question-no">Question two · confirm employer scale</div>
+            <h2>How large is the workforce?</h2>
+            <p class="context">
+              We have preselected a range from the FTE figure. Confirm or change
+              it. This range guides the diagnostic but does not by itself
+              establish ACA Applicable Large Employer status.
+            </p>
+            <div class="options" data-key="size">
+              <button class="option" data-value="tiny">
+                <span class="letter">A</span
+                ><span
+                  ><strong>1–5 FTEs</strong
+                  ><small>Very small employer</small></span
+                ><span class="arrow">→</span></button
+              ><button class="option" data-value="small">
+                <span class="letter">B</span
+                ><span><strong>6–10 FTEs</strong><small>Small team</small></span
+                ><span class="arrow">→</span></button
+              ><button class="option" data-value="mid">
+                <span class="letter">C</span
+                ><span
+                  ><strong>11–25 FTEs</strong
+                  ><small>Growing small employer</small></span
+                ><span class="arrow">→</span></button
+              ><button class="option" data-value="upper">
+                <span class="letter">D</span
+                ><span
+                  ><strong>26–49 FTEs</strong
+                  ><small>Approaching the large-employer threshold</small></span
+                ><span class="arrow">→</span></button
+              ><button class="option" data-value="ale">
+                <span class="letter">E</span
+                ><span
+                  ><strong>50+ FTEs</strong
+                  ><small>Likely an Applicable Large Employer</small></span
+                ><span class="arrow">→</span>
+              </button>
+            </div>
+            <div class="scene-actions">
+              <span></span
+              ><button class="button next" disabled>Next question →</button>
+            </div>
+          </section>
+          <section class="scene" data-step="2">
+            <div class="question-no">Question three · starting point</div>
+            <h2>What do employees have now?</h2>
+            <p class="context">
+              A QSEHRA cannot coexist with an employer group health plan. The
+              current arrangement changes the available paths.
+            </p>
+            <div class="options" data-key="current">
+              <button class="option" data-value="none">
+                <span class="letter">A</span
+                ><span
+                  ><strong>No employer health plan</strong
+                  ><small
+                    >Employees are uninsured or obtain coverage
+                    independently</small
+                  ></span
+                ><span class="arrow">→</span></button
+              ><button class="option" data-value="group">
+                <span class="letter">B</span
+                ><span
+                  ><strong>Traditional group health plan</strong
+                  ><small
+                    >Employer-sponsored major medical is already in place</small
+                  ></span
+                ><span class="arrow">→</span></button
+              ><button class="option" data-value="individual">
+                <span class="letter">C</span
+                ><span
+                  ><strong>Informal individual-premium assistance</strong
+                  ><small>The employer helps outside a formal HRA</small></span
+                ><span class="arrow">→</span></button
+              ><button class="option" data-value="uncertain">
+                <span class="letter">D</span
+                ><span
+                  ><strong>Not sure</strong
+                  ><small>The current arrangement needs review</small></span
+                ><span class="arrow">→</span>
+              </button>
+            </div>
+            <div class="scene-actions">
+              <button class="button back">← Back</button
+              ><button class="button next" disabled>Next question →</button>
+            </div>
+          </section>
+          <section class="scene" data-step="3">
+            <div class="question-no">Question four · desired outcome</div>
+            <h2>What must the benefit accomplish?</h2>
+            <p class="context">
+              Choose the employer’s first priority. A second path will be
+              surfaced when the facts warrant comparison.
+            </p>
+            <div class="options" data-key="priority">
+              <button class="option" data-value="major">
+                <span class="letter">A</span
+                ><span
+                  ><strong>Meaningful major-medical coverage</strong
+                  ><small
+                    >Protection from hospitalization and significant
+                    illness</small
+                  ></span
+                ><span class="arrow">→</span></button
+              ><button class="option" data-value="budget">
+                <span class="letter">B</span
+                ><span
+                  ><strong>A predictable employer contribution</strong
+                  ><small
+                    >Set the budget instead of absorbing renewal
+                    volatility</small
+                  ></span
+                ><span class="arrow">→</span></button
+              ><button class="option" data-value="lowest">
+                <span class="letter">C</span
+                ><span
+                  ><strong>The lowest-cost preventive benefit</strong
+                  ><small
+                    >Offer something useful when major medical is
+                    unaffordable</small
+                  ></span
+                ><span class="arrow">→</span></button
+              ><button class="option" data-value="compliance">
+                <span class="letter">D</span
+                ><span
+                  ><strong>ACA Penalty A and B protection</strong
+                  ><small>Important at or above 50 FTEs</small></span
+                ><span class="arrow">→</span></button
+              ><button class="option" data-value="retain">
+                <span class="letter">E</span
+                ><span
+                  ><strong>Keep the current plan if competitive</strong
+                  ><small
+                    >Compare before disrupting existing coverage</small
+                  ></span
+                ><span class="arrow">→</span>
+              </button>
+            </div>
+            <div class="scene-actions">
+              <button class="button back">← Back</button
+              ><button class="button next" disabled>Next question →</button>
+            </div>
+          </section>
+          <section class="scene" data-step="4">
+            <div class="question-no">Question five · workforce design</div>
+            <h2>How differently do employees need to be treated?</h2>
+            <p class="context">
+              Different locations, salaried and hourly groups, or full-time and
+              part-time populations can favor a more flexible structure.
+            </p>
+            <div class="options" data-key="workforce">
+              <button class="option" data-value="uniform">
+                <span class="letter">A</span
+                ><span
+                  ><strong>Mostly one employee group</strong
+                  ><small
+                    >Similar eligibility, locations, and benefit needs</small
+                  ></span
+                ><span class="arrow">→</span></button
+              ><button class="option" data-value="classes">
+                <span class="letter">B</span
+                ><span
+                  ><strong>Several distinct employee groups</strong
+                  ><small
+                    >Different locations, employment types, or strategies</small
+                  ></span
+                ><span class="arrow">→</span></button
+              ><button class="option" data-value="turnover">
+                <span class="letter">C</span
+                ><span
+                  ><strong>High-turnover or variable-hour workforce</strong
+                  ><small
+                    >Eligibility and ongoing administration are significant
+                    concerns</small
+                  ></span
+                ><span class="arrow">→</span>
+              </button>
+            </div>
+            <div class="scene-actions">
+              <button class="button back">← Back</button
+              ><button class="button next" disabled>Final question →</button>
+            </div>
+          </section>
+          <section class="scene" data-step="5">
+            <div class="question-no">Question six · likely take-up</div>
+            <h2>How many employees are realistically likely to participate?</h2>
+            <p class="context">
+              Use likely enrollees—not total employees. Group arrangements may
+              carry participation or monthly minimums.
+            </p>
+            <div class="number-box">
+              <label for="participants">Estimated participating employees</label
+              ><input
+                id="participants"
+                type="number"
+                min="1"
+                max="10000"
+                inputmode="numeric"
+                placeholder="0"
+              />
+            </div>
+            <div class="scene-actions">
+              <button class="button back">← Back</button
+              ><button class="button dark" id="show-result" disabled>
+                Build my direction →
+              </button>
+            </div>
+          </section>
+          <section class="result" id="result" aria-live="polite">
+            <div class="result-label">Strongest starting direction</div>
+            <h2 class="recommendation" id="result-title"></h2>
+            <p class="result-lede" id="result-summary"></p>
+            <div class="signals">
+              <div class="signal">
+                <small>Penalty A</small><b id="signal-a"></b>
+              </div>
+              <div class="signal">
+                <small>Penalty B</small><b id="signal-b"></b>
+              </div>
+            </div>
+            <div class="brief">
+              <div>
+                <h3>Why this direction</h3>
+                <ul id="why-list"></ul>
+              </div>
+              <div>
+                <h3>What must be verified</h3>
+                <ul id="verify-list"></ul>
+              </div>
+            </div>
+            <div class="alternate" id="alternate"></div>
+            <div class="alternate">
+              <strong id="other-question"
+                >Would you like to explore another retention track?</strong
+              ><br /><span id="other-note"
+                >Your health result will remain available while you
+                continue.</span
+              >
+            </div>
+            <div class="result-actions">
+              <a class="button dark" id="other-path" href="retirement.html"
+                >Explore retirement benefits →</a
+              ><a class="button dark" href="workplace.html"
+                >Explore workplace & management →</a
+              ><a class="button" id="send-results" href="results.html"
+                >Continue to my results</a
+              ><button class="button back" id="restart">Start over</button>
+            </div>
+            <p class="disclaimer">
+              Educational planning tool only—not legal, tax, insurance, or
+              employee-benefits advice. Eligibility and penalty protection
+              depend on current rules, correct workforce measurement,
+              affordability, minimum value, plan documents, employee offers, and
+              required reporting.
+            </p>
+          </section>
+        </div>
+      </section>
+    </main>
+    <dialog id="contact-dialog" aria-labelledby="contact-title">
+      <div class="modal">
+        <div class="modal-head">
+          <div>
+            <div class="kicker">Your profile is already attached</div>
+            <h2 id="contact-title">
+              Turn the direction into a real comparison.
+            </h2>
+            <p>
+              We’ll begin with the facts you just provided—not a generic sales
+              conversation.
+            </p>
+          </div>
+          <button class="close" type="button" aria-label="Close contact form">
+            ×
+          </button>
+        </div>
+        <div class="carry">
+          <small>Planning direction</small><strong id="carry-result"></strong>
+        </div>
+        <form class="contact" id="contact-form">
+          <div class="form-grid">
+            <div>
+              <label for="name">Your name *</label
+              ><input id="name" name="name" autocomplete="name" required />
+            </div>
+            <div>
+              <label for="company">Company or organization *</label
+              ><input
+                id="company"
+                name="company"
+                autocomplete="organization"
+                required
+              />
+            </div>
+            <div>
+              <label for="email">Work email *</label
+              ><input
+                id="email"
+                name="email"
+                type="email"
+                autocomplete="email"
+                required
+              />
+            </div>
+            <div>
+              <label for="phone">Phone</label
+              ><input id="phone" name="phone" type="tel" autocomplete="tel" />
+            </div>
+            <div>
+              <label for="method">Preferred contact</label
+              ><select id="method" name="method">
+                <option>Email</option>
+                <option>Phone</option>
+              </select>
+            </div>
+            <div>
+              <label for="time">Best time</label
+              ><input id="time" name="time" placeholder="Weekday mornings" />
+            </div>
+            <div class="wide">
+              <label for="note">Anything else we should consider?</label
+              ><textarea
+                id="note"
+                name="note"
+                placeholder="Current contribution, renewal concern, employee feedback, or target effective date"
+              ></textarea>
+            </div>
+          </div>
+          <div class="submit-line">
+            <button class="button dark" type="submit">
+              Prepare my review request →</button
+            ><small>Review the completed email before sending.</small>
+          </div>
+          <div class="success" id="success">
+            Your email is ready. Please send it to complete the request.
+          </div>
+        </form>
+      </div>
+    </dialog>
+    <script>
+      const labels = {
+        size: {
+          tiny: "1–5 FTEs",
+          small: "6–10 FTEs",
+          mid: "11–25 FTEs",
+          upper: "26–49 FTEs",
+          ale: "50+ FTEs",
+        },
+        current: {
+          none: "No employer plan",
+          group: "Group health plan",
+          individual: "Individual assistance",
+          uncertain: "Needs review",
+        },
+        priority: {
+          major: "Major medical",
+          budget: "Predictable contribution",
+          lowest: "Lowest-cost preventive",
+          compliance: "ACA A + B protection",
+          retain: "Keep current plan",
+        },
+        workforce: {
+          uniform: "Mostly one group",
+          classes: "Several groups",
+          turnover: "Variable-hour / turnover",
+        },
+      };
+      const answers = {};
+      let current = 0;
+      const scenes = [...document.querySelectorAll(".scene")],
+        markers = [...document.querySelectorAll(".step-mark")],
+        result = document.getElementById("result");
+      function showStep(i) {
+        current = i;
+        scenes.forEach((x, n) => x.classList.toggle("active", n === i));
+        result.classList.remove("active");
+        markers.forEach((m, n) => {
+          m.classList.toggle("active", n === i);
+          m.classList.toggle("done", n < i);
+        });
+        document.getElementById("progress-text").textContent =
+          `${String(i + 1).padStart(2, "0")} / 06`;
+        window.scrollTo({ top: 0, behavior: "smooth" });
+      }
+      const knownPanel = document.getElementById("known-panel"),
+        calculatePanel = document.getElementById("calculate-panel"),
+        knownFte = document.getElementById("known-fte"),
+        ftePeriod = document.getElementById("fte-period"),
+        fteHours = document.getElementById("fte-hours"),
+        fteNext = document.getElementById("fte-next");
+      function sizeFromFte(n) {
+        return n <= 5
+          ? "tiny"
+          : n <= 10
+            ? "small"
+            : n <= 25
+              ? "mid"
+              : n < 50
+                ? "upper"
+                : "ale";
+      }
+      function setFte(n, source) {
+        if (!(n > 0)) {
+          fteNext.disabled = true;
+          return;
+        }
+        answers.fte = Number(n.toFixed(2));
+        answers.fteSource = source;
+        const size = sizeFromFte(n),
+          group = document.querySelector('.options[data-key="size"]');
+        answers.size = size;
+        document.getElementById("profile-fte").textContent =
+          answers.fte.toLocaleString(undefined, { maximumFractionDigits: 2 });
+        document.getElementById("profile-size").textContent = labels.size[size];
+        group
+          .querySelectorAll(".option")
+          .forEach((x) =>
+            x.classList.toggle("selected", x.dataset.value === size),
+          );
+        group.closest(".scene").querySelector(".next").disabled = false;
+        fteNext.disabled = false;
+      }
+      document.querySelectorAll("[data-fte-mode]").forEach((button) =>
+        button.addEventListener("click", () => {
+          document
+            .querySelectorAll("[data-fte-mode]")
+            .forEach((x) => x.classList.remove("selected"));
+          button.classList.add("selected");
+          const known = button.dataset.fteMode === "known";
+          knownPanel.classList.toggle("active", known);
+          calculatePanel.classList.toggle("active", !known);
+          if (knownFte.value && known)
+            setFte(Number(knownFte.value), "Known figure");
+          else if (!known) calculateFte();
+          else fteNext.disabled = true;
+        }),
+      );
+      knownFte.addEventListener("input", () =>
+        setFte(Number(knownFte.value), "Known figure"),
+      );
+      function calculateFte() {
+        const months = Number(ftePeriod.value),
+          hours = Number(fteHours.value);
+        if (!(months > 0 && hours > 0)) {
+          document.getElementById("fte-output").hidden = true;
+          fteNext.disabled = true;
+          return;
+        }
+        const denominator = 2080 * (months / 12),
+          fte = hours / denominator;
+        document.getElementById("fte-result").textContent =
+          fte.toLocaleString(undefined, {
+            minimumFractionDigits: 2,
+            maximumFractionDigits: 2,
+          }) + " FTEs";
+        document.getElementById("fte-formula").textContent =
+          hours.toLocaleString() +
+          " hours ÷ " +
+          denominator.toLocaleString() +
+          " proportional hours";
+        document.getElementById("fte-output").hidden = false;
+        setFte(fte, months + "-month payroll-hours estimate");
+      }
+      ftePeriod.addEventListener("change", calculateFte);
+      fteHours.addEventListener("input", calculateFte);
+      document.querySelectorAll(".options").forEach((group) =>
+        group.addEventListener("click", (e) => {
+          const b = e.target.closest(".option");
+          if (!b) return;
+          group
+            .querySelectorAll(".option")
+            .forEach((x) => x.classList.remove("selected"));
+          b.classList.add("selected");
+          const key = group.dataset.key;
+          answers[key] = b.dataset.value;
+          document.getElementById("profile-" + key).textContent =
+            labels[key][b.dataset.value];
+          group.closest(".scene").querySelector(".next").disabled = false;
+        }),
+      );
+      document
+        .querySelectorAll(".next")
+        .forEach((b) =>
+          b.addEventListener("click", () => showStep(current + 1)),
+        );
+      document.querySelectorAll(".back").forEach((b) => {
+        if (b.id !== "restart")
+          b.addEventListener("click", () => showStep(current - 1));
+      });
+      const participants = document.getElementById("participants"),
+        showResult = document.getElementById("show-result");
+      participants.addEventListener("input", () => {
+        const n = Number(participants.value);
+        showResult.disabled = !(n > 0);
+        document.getElementById("profile-participants").textContent =
+          n > 0 ? n : "—";
+      });
+      const plans = {
+        qsehra: {
+          title: "QSEHRA",
+          summary:
+            "A defined reimbursement allowance is likely the cleanest starting direction for this smaller employer, provided it does not offer a group health plan.",
+          a: "Not applicable",
+          b: "Not applicable",
+        },
+        ichra: {
+          title: "ICHRA",
+          summary:
+            "A formally administered ICHRA can give employees individual major-medical choice while allowing the employer to control its contribution.",
+          a: "Conditional protection",
+          b: "If affordable",
+        },
+        mec: {
+          title: "MEC",
+          summary:
+            "A preventive-care MEC option may fit the low-cost objective, but it should not be presented as comprehensive health insurance.",
+          a: "Potential protection",
+          b: "Generally no",
+        },
+        group: {
+          title: "KEEP + BENCHMARK",
+          summary:
+            "The current group plan deserves a side-by-side cost and coverage review before the employer replaces meaningful major-medical protection.",
+          a: "Depends on offer",
+          b: "Depends on plan",
+        },
+        shop: {
+          title: "SHOP COMPARISON",
+          summary:
+            "For an employer below 25 FTEs, a SHOP comparison may reveal a small-business health-care tax-credit opportunity that an HRA or MEC would not provide.",
+          a: "Not applicable",
+          b: "Not applicable",
+        },
+      };
+      function decide() {
+        const a = answers,
+          count = Number(participants.value),
+          isALE = a.size === "ale",
+          under25 = ["tiny", "small", "mid"].includes(a.size);
+        let pick = "qsehra",
+          alternate = "ICHRA",
+          why = [],
+          verify = [];
+        if (isALE && a.priority === "lowest") {
+          pick = "mec";
+          alternate =
+            "Affordable ICHRA or major-medical group coverage for Penalty B protection";
+          why = [
+            "The lowest-cost preventive benefit is the stated priority.",
+            "MEC may address the broad Penalty A offer requirement when correctly offered.",
+          ];
+          verify = [
+            "Confirm MEC status and an offer to at least 95% of full-time employees and dependents.",
+            "Model Penalty B exposure because preventive-only MEC generally does not provide minimum value.",
+            "Complete ACA measurement and reporting.",
+          ];
+        } else if (isALE) {
+          pick = "ichra";
+          alternate =
+            a.current === "group"
+              ? "Benchmark the existing group plan before changing"
+              : "Traditional group major medical";
+          why = [
+            "QSEHRA is unavailable to an Applicable Large Employer.",
+            "An ICHRA counts as an offer of coverage for the employer mandate.",
+            "The employer can define its contribution while employees select individual major medical.",
+          ];
+          verify = [
+            "Test affordability for each full-time employee.",
+            "Offer correctly to at least 95% of full-time employees and dependents.",
+            "Confirm classes, notices, substantiation, opt-out procedures, and reporting.",
+          ];
+        } else if (
+          a.current === "group" &&
+          (a.priority === "retain" || a.priority === "major")
+        ) {
+          pick = "group";
+          alternate = under25
+            ? "A SHOP quote and tax-credit eligibility test"
+            : "An ICHRA comparison at renewal";
+          why = [
+            "Employees already have major-medical coverage.",
+            "Replacing it with preventive-only MEC would materially reduce protection.",
+            "A benchmark tests cost without premature disruption.",
+          ];
+          verify = [
+            "Employer and employee premium contributions.",
+            "Participation, renewal rate, network, deductible, and out-of-pocket exposure.",
+            "SHOP and tax-credit eligibility where applicable.",
+          ];
+        } else if (a.priority === "lowest") {
+          pick = "mec";
+          alternate =
+            a.current === "group"
+              ? "Keep the group plan if major-medical protection is needed"
+              : "QSEHRA for employees needing individual major medical";
+          why = [
+            "The lowest-cost preventive benefit is the stated priority.",
+            `Projected participation is ${count} employee${count === 1 ? "" : "s"}.`,
+          ];
+          verify = [
+            "Provider pricing, services, exclusions, participation, and monthly minimums.",
+            "Do not describe preventive-only MEC as major medical.",
+            "Obtain written confirmation that projected enrollment satisfies plan requirements.",
+          ];
+        } else if (a.workforce === "classes" || a.size === "upper") {
+          pick = "ichra";
+          alternate =
+            a.current === "group"
+              ? "A compliant class-based group-plan strategy"
+              : "QSEHRA if one uniform benefit is sufficient";
+          why = [
+            "The workforce requires class or contribution flexibility.",
+            "ICHRA can continue if the employer grows beyond 50 FTEs.",
+            "The employer defines its contribution instead of choosing one policy.",
+          ];
+          verify = [
+            "Permitted employee classes and minimum class-size rules.",
+            "Individual-market premiums and tax-credit effects.",
+            "Notices, coverage verification, and administration.",
+          ];
+        } else if (under25 && a.priority === "major") {
+          pick = "shop";
+          alternate = "QSEHRA if SHOP pricing or participation is unattractive";
+          why = [
+            "Meaningful major medical is the priority.",
+            "Employers below 25 FTEs may qualify for a small-business health-care tax credit.",
+            "Group and individual-market options deserve comparison.",
+          ];
+          verify = [
+            "Form 8941 FTEs and average annual wages.",
+            "SHOP availability, contribution, participation, and credit limitations.",
+            "Employee net cost, networks, and deductibles.",
+          ];
+        } else {
+          pick = "qsehra";
+          alternate =
+            "ICHRA if greater class flexibility or contribution levels are needed";
+          why = [
+            "The employer is below the ALE threshold and appears suited to defined reimbursement.",
+            "Employees select qualifying coverage for their households.",
+            "The employer controls its maximum allowance.",
+          ];
+          verify = [
+            "No other employer group health plan.",
+            "Required same terms for eligible employees.",
+            "Marketplace tax-credit effects and compliant administration.",
+          ];
+        }
+        const p = plans[pick];
+        document.getElementById("result-title").textContent = p.title;
+        document.getElementById("result-summary").textContent = p.summary;
+        document.getElementById("signal-a").textContent = p.a;
+        document.getElementById("signal-b").textContent = p.b;
+        document.getElementById("why-list").innerHTML = why
+          .map((x) => `<li>${x}</li>`)
+          .join("");
+        document.getElementById("verify-list").innerHTML = verify
+          .map((x) => `<li>${x}</li>`)
+          .join("");
+        document.getElementById("alternate").innerHTML =
+          `<strong>Also compare:</strong> ${alternate}.`;
+        answers.result = p.title;
+        localStorage.setItem(
+          "slt_health_result",
+          JSON.stringify({
+            type: "Health benefits",
+            title: p.title,
+            summary: p.summary,
+            why,
+            verify,
+            alternative: alternate,
+            profile: {
+              "FTE figure": a.fte,
+              "FTE source": a.fteSource,
+              "Confirmed workforce range": labels.size[a.size],
+              "Current benefit": labels.current[a.current],
+              "Primary objective": labels.priority[a.priority],
+              "Workforce mix": labels.workforce[a.workforce],
+              "Estimated participants": count,
+            },
+            signals: { "Penalty A": p.a, "Penalty B": p.b },
+          }),
+        );
+        if (localStorage.getItem("slt_retirement_result")) {
+          document.getElementById("other-question").textContent =
+            "You have completed both benefit diagnostics.";
+          document.getElementById("other-note").textContent =
+            "Continue to receive your combined health and retirement results.";
+          document.getElementById("other-path").style.display = "none";
+          document.getElementById("send-results").textContent =
+            "Continue to my combined results →";
+        }
+        scenes.forEach((x) => x.classList.remove("active"));
+        result.classList.add("active");
+        markers.forEach((m) => {
+          m.classList.remove("active");
+          m.classList.add("done");
+        });
+        document.getElementById("progress-text").textContent = "DIRECTION";
+        window.scrollTo({ top: 0, behavior: "smooth" });
+      }
+      showResult.addEventListener("click", decide);
+      document.getElementById("restart").addEventListener("click", () => {
+        localStorage.removeItem("slt_health_result");
+        Object.keys(answers).forEach((k) => delete answers[k]);
+        document
+          .querySelectorAll(".option,[data-fte-mode]")
+          .forEach((x) => x.classList.remove("selected"));
+        document.querySelectorAll(".next").forEach((x) => (x.disabled = true));
+        knownFte.value = "";
+        ftePeriod.value = "";
+        fteHours.value = "";
+        knownPanel.classList.remove("active");
+        calculatePanel.classList.remove("active");
+        document.getElementById("fte-output").hidden = true;
+        participants.value = "";
+        showResult.disabled = true;
+        [
+          "fte",
+          "size",
+          "current",
+          "priority",
+          "workforce",
+          "participants",
+        ].forEach(
+          (k) => (document.getElementById("profile-" + k).textContent = "—"),
+        );
+        showStep(0);
+      });
+      const dialog = document.getElementById("contact-dialog");
+      dialog
+        .querySelector(".close")
+        .addEventListener("click", () => dialog.close());
+      dialog.addEventListener("click", (e) => {
+        if (e.target === dialog) dialog.close();
+      });
+      document
+        .getElementById("contact-form")
+        .addEventListener("submit", (e) => {
+          e.preventDefault();
+          const d = new FormData(e.currentTarget);
+          const body = [
+            "EMPLOYER BENEFITS REVIEW REQUEST",
+            "",
+            `Name: ${d.get("name")}`,
+            `Company: ${d.get("company")}`,
+            `Work email: ${d.get("email")}`,
+            `Phone: ${d.get("phone") || "Not provided"}`,
+            `Preferred contact: ${d.get("method")}`,
+            `Best time: ${d.get("time") || "Not provided"}`,
+            "",
+            "DIAGNOSTIC PROFILE",
+            `Direction: ${answers.result}`,
+            `Workforce size: ${labels.size[answers.size]}`,
+            `Current benefit: ${labels.current[answers.current]}`,
+            `Priority: ${labels.priority[answers.priority]}`,
+            `Workforce mix: ${labels.workforce[answers.workforce]}`,
+            `Estimated participants: ${participants.value}`,
+            "",
+            "Additional context:",
+            d.get("note") || "None provided",
+          ].join("\n");
+          document.getElementById("success").style.display = "block";
+          location.href =
+            "mailto:hello@stoplosingtalent.com?subject=" +
+            encodeURIComponent(
+              "Employer Benefits Review — " + d.get("company"),
+            ) +
+            "&body=" +
+            encodeURIComponent(body);
+        });
+    </script>
+  </body>
+</html>

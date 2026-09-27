@@ -1,0 +1,10 @@
+STOP LOSING TALENT — UNIFIED COLOR PALETTE
+
+Deep Navy     #17213F   Primary dark surfaces, navigation, and text
+Muted Purple  #6F4B8B   Primary actions and emphasis
+Sage          #9AAA91   Supporting panels, progress, and positive guidance
+Accent Gold   #C6A052   Select highlights, borders, and premium details
+Warm Ivory    #F5F3EC   Main page background
+Deep Ink      #20283F   Body copy on light surfaces
+
+Gold is intentionally used as an accent rather than a dominant fill.

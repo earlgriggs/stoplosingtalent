@@ -1,0 +1,613 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <title>Workplace & Management Diagnostic | Stop Losing Talent</title>
+    <meta
+      name="description"
+      content="Identify workplace and management conditions that may be contributing to employee turnover."
+    />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Manrope:wght@600;700;800&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      :root {
+        --night: #17213f;
+        --paper: #f5f3ec;
+        --teal: #6f4b8b;
+        --sage: #9aaa91;
+        --gold: #c6a052;
+        --ink: #20283f;
+      }
+      * {
+        box-sizing: border-box;
+      }
+      body {
+        margin: 0;
+        background: var(--paper);
+        color: var(--ink);
+        font:
+          16px/1.5 "DM Sans",
+          sans-serif;
+      }
+      .app {
+        min-height: 100vh;
+        display: grid;
+        grid-template-columns: minmax(290px, 33vw) 1fr;
+      }
+      .rail {
+        background: var(--night);
+        color: #fff;
+        padding: 38px clamp(26px, 4vw, 60px);
+        display: flex;
+        flex-direction: column;
+        position: sticky;
+        top: 0;
+        height: 100vh;
+      }
+      .brand {
+        font: 800 1.15rem Manrope;
+        color: #fff;
+        text-decoration: none;
+      }
+      .brand span {
+        color: var(--gold);
+      }
+      .rail h1 {
+        font: 800 clamp(2.5rem, 4.5vw, 4.6rem)/1 Manrope;
+        letter-spacing: -0.055em;
+        margin: auto 0 20px;
+      }
+      .rail p {
+        color: #c4ced8;
+      }
+      .meter {
+        margin-top: auto;
+        border-top: 1px solid #486074;
+        padding-top: 20px;
+      }
+      .meter b {
+        font: 800 2rem Manrope;
+        color: var(--sage);
+      }
+      .stage {
+        min-width: 0;
+      }
+      .top {
+        height: 76px;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding: 0 clamp(22px, 5vw, 72px);
+        border-bottom: 1px solid #ccd0d2;
+      }
+      .top a {
+        color: inherit;
+        text-decoration: none;
+        font-weight: 700;
+      }
+      .workspace {
+        width: min(880px, calc(100% - 42px));
+        margin: clamp(45px, 10vh, 100px) auto;
+      }
+      .eyebrow {
+        text-transform: uppercase;
+        letter-spacing: 0.13em;
+        font: 800 0.76rem Manrope;
+        color: var(--teal);
+      }
+      h2 {
+        font: 800 clamp(2.6rem, 5vw, 5rem)/1.02 Manrope;
+        letter-spacing: -0.055em;
+        margin: 14px 0 18px;
+      }
+      .context {
+        color: #5b6877;
+        font-size: 1.06rem;
+      }
+      .options {
+        margin-top: 30px;
+        border-top: 1px solid #c8cccf;
+      }
+      .option {
+        width: 100%;
+        border: 0;
+        border-bottom: 1px solid #c8cccf;
+        background: transparent;
+        padding: 18px 8px;
+        text-align: left;
+        color: inherit;
+        cursor: pointer;
+        display: flex;
+        gap: 15px;
+      }
+      .option:hover,
+      .option.selected {
+        background: #fff;
+        padding-left: 18px;
+      }
+      .option.selected {
+        background: var(--night);
+        color: #fff;
+      }
+      .option b {
+        font: 800 1.02rem Manrope;
+      }
+      .option small {
+        display: block;
+        color: #657181;
+      }
+      .option.selected small {
+        color: #c4ced8;
+      }
+      .actions {
+        display: flex;
+        justify-content: space-between;
+        gap: 12px;
+        margin-top: 28px;
+      }
+      .button {
+        border: 0;
+        background: var(--teal);
+        color: #fff;
+        padding: 14px 20px;
+        font-weight: 800;
+        cursor: pointer;
+        text-decoration: none;
+      }
+      .button:disabled {
+        opacity: 0.3;
+      }
+      .button.back {
+        background: transparent;
+        color: var(--ink);
+        padding-left: 0;
+      }
+      .result {
+        display: none;
+      }
+      .result.active {
+        display: block;
+      }
+      .recommendation {
+        font: 800 clamp(3.4rem, 8vw, 7.5rem)/0.9 Manrope;
+        letter-spacing: -0.07em;
+        margin: 20px 0;
+      }
+      .brief {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 28px;
+        margin-top: 30px;
+      }
+      .brief ul {
+        padding-left: 20px;
+      }
+      .callout {
+        background: #e7ece2;
+        border-left: 6px solid var(--teal);
+        padding: 20px;
+        margin: 26px 0;
+      }
+      .result-actions {
+        display: flex;
+        gap: 12px;
+        flex-wrap: wrap;
+      }
+      .safety {
+        background: #f1eaf5;
+        border-left-color: var(--gold);
+      }
+      @media (max-width: 820px) {
+        .app {
+          grid-template-columns: 1fr;
+        }
+        .rail {
+          position: relative;
+          height: auto;
+          min-height: 380px;
+        }
+        .workspace {
+          margin: 50px auto;
+        }
+        .brief {
+          grid-template-columns: 1fr;
+        }
+      }
+      @media (max-width: 520px) {
+        h2 {
+          font-size: 2.8rem;
+        }
+        .result-actions .button {
+          width: 100%;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <main class="app">
+      <aside class="rail">
+        <a class="brand" href="index.html">STOP LOSING <span>TALENT.</span></a>
+        <h1>See what may be pushing good people away.</h1>
+        <p>
+          Eight questions turn workplace symptoms into a practical management
+          starting point.
+        </p>
+        <div class="meter">
+          <b id="count">01 / 08</b>
+          <div id="topic">Primary symptom</div>
+        </div>
+      </aside>
+      <section class="stage">
+        <div class="top">
+          <a href="diagnostic.html">← Choose another track</a
+          ><span>Workplace & Management</span>
+        </div>
+        <div class="workspace">
+          <section id="question">
+            <div class="eyebrow" id="eyebrow"></div>
+            <h2 id="prompt"></h2>
+            <p class="context" id="context"></p>
+            <div class="options" id="options"></div>
+            <div class="actions">
+              <button class="button back" id="back">← Back</button
+              ><button class="button" id="next" disabled>
+                Next question →
+              </button>
+            </div>
+          </section>
+          <section class="result" id="result">
+            <div class="eyebrow">Primary workplace direction</div>
+            <h2 class="recommendation" id="result-title"></h2>
+            <p class="context" id="result-summary"></p>
+            <div class="brief">
+              <div>
+                <h3>Why this direction</h3>
+                <ul id="why"></ul>
+              </div>
+              <div>
+                <h3>What to do first</h3>
+                <ul id="actions"></ul>
+              </div>
+            </div>
+            <div class="callout" id="secondary"></div>
+            <div class="callout">
+              <strong>Test this conclusion against employee experience.</strong
+              ><br />A confidential employee pulse can reveal whether leadership
+              and employees see the workplace the same way.
+            </div>
+            <div class="result-actions">
+              <a class="button" href="feedback.html"
+                >Preview confidential employee feedback →</a
+              ><a class="button" href="results.html">Continue to my results</a
+              ><button class="button back" id="restart">Start over</button>
+            </div>
+          </section>
+        </div>
+      </section>
+    </main>
+    <script>
+      const questions = [
+        {
+          topic: "Primary symptom",
+          prompt: "What prompted you to examine the workplace?",
+          context: "Choose the strongest signal—not every symptom.",
+          key: "symptom",
+          options: [
+            [
+              "turnover",
+              "Turnover or resignation risk",
+              "Good employees are leaving or appear ready to leave",
+            ],
+            [
+              "morale",
+              "Low morale or disengagement",
+              "Energy, initiative, or cooperation has declined",
+            ],
+            [
+              "conflict",
+              "Conflict or complaints",
+              "Interpersonal or supervisory friction is increasing",
+            ],
+            [
+              "performance",
+              "Performance or absenteeism",
+              "Reliability, quality, or attendance is slipping",
+            ],
+            [
+              "growth",
+              "Rapid growth or change",
+              "The organization has outgrown informal practices",
+            ],
+          ],
+        },
+        {
+          topic: "Scope",
+          prompt: "How widespread does the issue appear to be?",
+          context:
+            "This helps distinguish an isolated matter from a system condition.",
+          key: "scope",
+          options: [
+            ["one", "One employee"],
+            ["team", "One supervisor or team"],
+            ["several", "Several teams or departments"],
+            ["all", "Organization-wide"],
+            ["unknown", "We are not sure"],
+          ],
+        },
+        {
+          topic: "Management",
+          prompt: "How consistently do supervisors manage employees?",
+          context:
+            "Think about communication, scheduling, feedback, and corrective action.",
+          key: "management",
+          options: [
+            ["strong", "Generally consistent"],
+            ["varies", "It varies by supervisor"],
+            ["reactive", "Mostly reactive"],
+            ["complaints", "Frequent management complaints"],
+            ["unknown", "We have not measured it"],
+          ],
+        },
+        {
+          topic: "Workload",
+          prompt: "How manageable is the workload?",
+          context:
+            "Consider staffing, overtime, coverage, role overlap, and administrative burden.",
+          key: "workload",
+          options: [
+            ["steady", "Generally sustainable"],
+            ["strained", "Occasionally strained"],
+            ["understaffed", "Regularly understaffed"],
+            ["overtime", "Persistent overtime or overload"],
+            ["unclear", "Responsibilities are unclear"],
+          ],
+        },
+        {
+          topic: "Communication",
+          prompt: "How comfortable are employees raising concerns?",
+          context:
+            "A process is useful only when employees believe it is safe and responsive.",
+          key: "trust",
+          options: [
+            ["safe", "Comfortable speaking up"],
+            ["manager", "Depends on the supervisor"],
+            ["reluctant", "Employees are reluctant"],
+            ["ignored", "Concerns are often ignored"],
+            ["none", "No established process"],
+          ],
+        },
+        {
+          topic: "Recognition & growth",
+          prompt:
+            "Do employees understand how good work is recognized and how they can advance?",
+          context:
+            "Fairness and visibility matter even when promotion opportunities are limited.",
+          key: "growth",
+          options: [
+            ["clear", "Clear and consistent"],
+            ["informal", "Mostly informal"],
+            ["limited", "Few development opportunities"],
+            ["favoritism", "Perceived favoritism"],
+            ["none", "No defined approach"],
+          ],
+        },
+        {
+          topic: "Working conditions",
+          prompt: "Which condition creates the most friction?",
+          context:
+            "Working conditions include far more than office versus remote work.",
+          key: "conditions",
+          options: [
+            ["schedule", "Scheduling or flexibility"],
+            ["physical", "Physical environment or equipment"],
+            ["remote", "Remote or hybrid expectations"],
+            ["resources", "Tools, training, or resources"],
+            ["people", "Interpersonal climate"],
+          ],
+        },
+        {
+          topic: "Risk screen",
+          prompt:
+            "Does the situation involve a serious allegation or immediate risk?",
+          context: "This changes the appropriate response.",
+          key: "risk",
+          options: [
+            ["none", "No known serious allegation"],
+            ["harassment", "Harassment, discrimination, or retaliation"],
+            ["safety", "Unsafe conditions, threats, or violence"],
+            ["wage", "Wage-and-hour concerns"],
+            ["misconduct", "Serious misconduct or potential legal exposure"],
+          ],
+        },
+      ];
+      let step = 0,
+        answers = {};
+      const q = document.getElementById("question"),
+        result = document.getElementById("result");
+      function render() {
+        const x = questions[step];
+        document.getElementById("count").textContent =
+          String(step + 1).padStart(2, "0") + " / 08";
+        document.getElementById("topic").textContent = x.topic;
+        document.getElementById("eyebrow").textContent =
+          "Question " + (step + 1) + " · " + x.topic;
+        document.getElementById("prompt").textContent = x.prompt;
+        document.getElementById("context").textContent = x.context;
+        document.getElementById("options").innerHTML = x.options
+          .map(
+            (o, i) =>
+              '<button class="option ' +
+              (answers[x.key] === o[0] ? "selected" : "") +
+              '" data-value="' +
+              o[0] +
+              '"><span>' +
+              String.fromCharCode(65 + i) +
+              ".</span><span><b>" +
+              o[1] +
+              "</b>" +
+              (o[2] ? "<small>" + o[2] + "</small>" : "") +
+              "</span></button>",
+          )
+          .join("");
+        document.getElementById("back").style.visibility = step
+          ? "visible"
+          : "hidden";
+        document.getElementById("next").disabled = !answers[x.key];
+        document.getElementById("next").textContent =
+          step === questions.length - 1
+            ? "Build my direction →"
+            : "Next question →";
+      }
+      document.getElementById("options").onclick = (e) => {
+        const b = e.target.closest(".option");
+        if (!b) return;
+        answers[questions[step].key] = b.dataset.value;
+        render();
+      };
+      document.getElementById("back").onclick = () => {
+        step--;
+        render();
+      };
+      document.getElementById("next").onclick = () => {
+        if (step < questions.length - 1) {
+          step++;
+          render();
+        } else decide();
+      };
+      function decide() {
+        const serious = answers.risk !== "none";
+        let title, summary, why, acts, secondary;
+        if (serious) {
+          title = "FORMAL ESCALATION";
+          summary =
+            "The facts indicate a matter that should be handled through a documented, qualified review—not an ordinary morale initiative.";
+          why = [
+            "A serious allegation or immediate-risk category was selected.",
+            "Informal fact-finding could expose employees or compromise the response.",
+          ];
+          acts = [
+            "Preserve relevant records and restrict unnecessary discussion.",
+            "Engage qualified HR, employment counsel, safety, or other appropriate professionals.",
+            "Use an impartial investigation and anti-retaliation process.",
+          ];
+          secondary =
+            "Do not use confidential pulse feedback as a substitute for formal reporting or investigation.";
+        } else if (["complaints", "reactive"].includes(answers.management)) {
+          title = "MANAGEMENT CONSISTENCY RESET";
+          summary =
+            "Employee experience appears likely to depend too heavily on the individual supervisor.";
+          why = [
+            "Management practices were described as reactive or complaint-driven.",
+            "Inconsistent supervision can turn ordinary workplace friction into turnover.",
+          ];
+          acts = [
+            "Define minimum supervisor expectations.",
+            "Standardize feedback, scheduling, and corrective-action practices.",
+            "Review turnover and complaints by supervisor or team.",
+          ];
+          secondary = "Also examine communication and trust.";
+        } else if (
+          ["understaffed", "overtime", "unclear"].includes(answers.workload)
+        ) {
+          title = "WORKLOAD & STAFFING REPAIR";
+          summary =
+            "Capacity, coverage, or role clarity appears to be the most immediate retention pressure.";
+          why = [
+            "The workload was described as persistently strained.",
+            "Adding benefits alone will not repair an unsustainable job design.",
+          ];
+          acts = [
+            "Map workload and recurring coverage gaps.",
+            "Clarify ownership of overlapping responsibilities.",
+            "Set staffing and overtime warning indicators.",
+          ];
+          secondary = "Also examine scheduling flexibility and tools.";
+        } else if (["reluctant", "ignored", "none"].includes(answers.trust)) {
+          title = "COMMUNICATION & TRUST REPAIR";
+          summary =
+            "Employees may not believe that raising concerns is safe or useful.";
+          why = [
+            "The current speak-up environment appears weak.",
+            "Unresolved concerns often reappear as disengagement or resignation.",
+          ];
+          acts = [
+            "Create a documented concern-escalation process.",
+            "Require leaders to acknowledge and close the loop.",
+            "Measure themes without exposing individual employees.",
+          ];
+          secondary =
+            "A confidential employee pulse is especially useful here.";
+        } else if (["limited", "favoritism", "none"].includes(answers.growth)) {
+          title = "RECOGNITION & GROWTH STRUCTURE";
+          summary =
+            "Employees may not see a fair, visible connection between contribution and opportunity.";
+          why = [
+            "Recognition or advancement was described as limited or unclear.",
+            "Perceived favoritism damages trust even where promotions are scarce.",
+          ];
+          acts = [
+            "Define consistent recognition practices.",
+            "Create periodic development conversations.",
+            "Publish practical advancement or skill-building criteria.",
+          ];
+          secondary = "Also review role and pay clarity.";
+        } else {
+          title = "WORKING-CONDITIONS REVIEW";
+          summary =
+            "Day-to-day conditions appear to be creating avoidable friction that can be addressed operationally.";
+          why = [
+            "The strongest signals center on how work is organized and supported.",
+            "Targeted operational changes may improve retention without a broad program.",
+          ];
+          acts = [
+            "Document the specific friction by role and team.",
+            "Separate operational requirements from inherited habits.",
+            "Pilot one measurable improvement and review after 30 days.",
+          ];
+          secondary =
+            "Also compare employee preferences with operational needs.";
+        }
+        const saved = {
+          type: "Workplace & management",
+          title,
+          summary,
+          why,
+          verify: acts,
+          alternative: secondary,
+          profile: { ...answers },
+        };
+        localStorage.setItem("slt_workplace_result", JSON.stringify(saved));
+        document.getElementById("result-title").textContent = title;
+        document.getElementById("result-summary").textContent = summary;
+        document.getElementById("why").innerHTML = why
+          .map((x) => "<li>" + x + "</li>")
+          .join("");
+        document.getElementById("actions").innerHTML = acts
+          .map((x) => "<li>" + x + "</li>")
+          .join("");
+        document.getElementById("secondary").innerHTML =
+          "<strong>Also examine:</strong> " + secondary;
+        if (serious)
+          document.getElementById("secondary").classList.add("safety");
+        q.style.display = "none";
+        result.classList.add("active");
+        document.getElementById("count").textContent = "FIT";
+        document.getElementById("topic").textContent = title;
+      }
+      document.getElementById("restart").onclick = () => {
+        localStorage.removeItem("slt_workplace_result");
+        answers = {};
+        step = 0;
+        q.style.display = "block";
+        result.classList.remove("active");
+        render();
+      };
+      render();
+    </script>
+  </body>
+</html>

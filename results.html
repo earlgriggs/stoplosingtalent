@@ -1,0 +1,429 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <title>Your Benefit Results | Stop Losing Talent</title>
+    <meta
+      name="description"
+      content="Review and request delivery of your employer benefit diagnostic results."
+    />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Manrope:wght@600;700;800&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      :root {
+        --night: #17213f;
+        --paper: #f5f3ec;
+        --coral: #6f4b8b;
+        --aqua: #9aaa91;
+        --gold: #c6a052;
+        --ink: #20283f;
+      }
+      * {
+        box-sizing: border-box;
+      }
+      body {
+        margin: 0;
+        background: var(--paper);
+        color: var(--ink);
+        font:
+          16px/1.5 "DM Sans",
+          sans-serif;
+      }
+      .top {
+        background: var(--night);
+        color: #fff;
+        padding: 24px clamp(20px, 5vw, 70px);
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+      }
+      .brand {
+        font: 800 1.18rem Manrope;
+        text-decoration: none;
+        color: #fff;
+      }
+      .brand span {
+        color: var(--coral);
+      }
+      .top a:last-child {
+        color: #fff;
+      }
+      .wrap {
+        width: min(1080px, calc(100% - 36px));
+        margin: auto;
+        padding: 64px 0;
+      }
+      h1,
+      h2,
+      h3 {
+        font-family: Manrope, sans-serif;
+        letter-spacing: -0.045em;
+        line-height: 1.05;
+      }
+      h1 {
+        font-size: clamp(3rem, 7vw, 6.5rem);
+        margin: 0 0 18px;
+      }
+      .lede {
+        color: #566273;
+        font-size: 1.1rem;
+        max-width: 760px;
+      }
+      .results {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        gap: 20px;
+        margin: 38px 0;
+      }
+      .card {
+        background: #fff;
+        border-top: 8px solid var(--aqua);
+        padding: 28px;
+      }
+      .card.retirement {
+        border-color: var(--coral);
+      }
+      .card small {
+        font-weight: 800;
+        text-transform: uppercase;
+        letter-spacing: 0.1em;
+        color: #697584;
+      }
+      .card h2 {
+        font-size: 2.3rem;
+        margin: 10px 0;
+      }
+      .card h3 {
+        font-size: 0.9rem;
+        text-transform: uppercase;
+        letter-spacing: 0.08em;
+        margin-top: 24px;
+      }
+      .card ul {
+        padding-left: 20px;
+        color: #4e5a69;
+      }
+      .empty {
+        border: 2px dashed #9aa3ae;
+        padding: 28px;
+      }
+      .form-shell {
+        display: grid;
+        grid-template-columns: 0.75fr 1.25fr;
+        background: var(--night);
+        color: #fff;
+        margin-top: 44px;
+      }
+      .form-copy {
+        padding: 38px;
+      }
+      .form-copy h2 {
+        font-size: 2.5rem;
+        margin: 0 0 16px;
+      }
+      .form-copy p {
+        color: #c2cad5;
+      }
+      .disclosure {
+        border-left: 5px solid var(--aqua);
+        padding: 14px 16px;
+        background: rgba(255, 255, 255, 0.07);
+        font-size: 0.9rem;
+      }
+      .form {
+        padding: 38px;
+        background: #fff;
+        color: var(--ink);
+      }
+      .grid {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 15px;
+      }
+      .wide {
+        grid-column: 1/-1;
+      }
+      label {
+        font-weight: 800;
+        display: block;
+        margin-bottom: 6px;
+      }
+      input,
+      select,
+      textarea {
+        width: 100%;
+        padding: 12px;
+        border: 2px solid #aeb5bd;
+        background: #fff;
+        font: inherit;
+      }
+      textarea {
+        min-height: 90px;
+      }
+      .consent {
+        display: grid;
+        grid-template-columns: auto 1fr;
+        gap: 10px;
+        margin: 18px 0;
+      }
+      .consent input {
+        width: 20px;
+        height: 20px;
+      }
+      .consent label {
+        font-weight: 500;
+      }
+      .button {
+        border: 0;
+        background: var(--coral);
+        color: #fff;
+        padding: 14px 21px;
+        font-weight: 800;
+        cursor: pointer;
+      }
+      .status {
+        display: none;
+        margin-top: 15px;
+        padding: 13px;
+        background: #e7ece2;
+        color: #153d34;
+        border-left: 5px solid var(--aqua);
+      }
+      .fine {
+        font-size: 0.82rem;
+        color: #6e7886;
+        margin-top: 12px;
+      }
+      @media (max-width: 760px) {
+        .results,
+        .form-shell,
+        .grid {
+          grid-template-columns: 1fr;
+        }
+        .wide {
+          grid-column: auto;
+        }
+        .wrap {
+          padding-top: 45px;
+        }
+        .form-copy,
+        .form {
+          padding: 28px;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <header class="top">
+      <a class="brand" href="index.html">STOP LOSING <span>TALENT.</span></a
+      ><a href="diagnostic.html">Run another diagnostic</a>
+    </header>
+    <main class="wrap">
+      <h1 id="page-title">Your benefit direction.</h1>
+      <p class="lede">
+        Review the preliminary directions created from your answers, then
+        request a copy for your records.
+      </p>
+      <section class="results" id="results"></section>
+      <section class="form-shell">
+        <div class="form-copy">
+          <h2>Send my results.</h2>
+          <p>
+            Your submitted answers and result summaries will accompany this
+            request.
+          </p>
+          <div class="disclosure">
+            <strong>Follow-up disclosure</strong><br />By submitting this form,
+            you agree to receive your requested diagnostic results by email. A
+            member of our team may also contact you to clarify your answers,
+            discuss your results, or help you evaluate possible next steps. You
+            are not obligated to purchase any product or service.
+          </div>
+        </div>
+        <form class="form" id="results-form">
+          <div class="grid">
+            <div>
+              <label for="name">Your name *</label
+              ><input id="name" name="name" required autocomplete="name" />
+            </div>
+            <div>
+              <label for="company">Company or organization *</label
+              ><input
+                id="company"
+                name="company"
+                required
+                autocomplete="organization"
+              />
+            </div>
+            <div>
+              <label for="email">Work email *</label
+              ><input
+                id="email"
+                name="email"
+                required
+                type="email"
+                autocomplete="email"
+              />
+            </div>
+            <div>
+              <label for="phone">Phone</label
+              ><input id="phone" name="phone" type="tel" autocomplete="tel" />
+            </div>
+            <div>
+              <label for="method">Preferred contact</label
+              ><select id="method" name="method">
+                <option>Email</option>
+                <option>Phone</option>
+              </select>
+            </div>
+            <div>
+              <label for="time">Best time</label
+              ><input id="time" name="time" placeholder="Weekday mornings" />
+            </div>
+            <div class="wide">
+              <label for="notes">Anything else we should consider?</label
+              ><textarea id="notes" name="notes"></textarea>
+            </div>
+          </div>
+          <div class="consent">
+            <input id="consent" name="consent" type="checkbox" required /><label
+              for="consent"
+              >I understand that a member of the team may contact me regarding
+              these results.</label
+            >
+          </div>
+          <button class="button" type="submit">
+            Email my result summary →
+          </button>
+          <div class="status" id="status"></div>
+          <p class="fine">
+            Your information is used to deliver and follow up on this request.
+          </p>
+        </form>
+      </section>
+    </main>
+    <script src="form-config.js"></script>
+    <script>
+      const health = read("slt_health_result"),
+        retirement = read("slt_retirement_result"),
+        workplace = read("slt_workplace_result"),
+        items = [health, retirement, workplace].filter(Boolean),
+        container = document.getElementById("results");
+      function read(k) {
+        try {
+          return JSON.parse(localStorage.getItem(k));
+        } catch {
+          return null;
+        }
+      }
+      function esc(v) {
+        return String(v ?? "").replace(
+          /[&<>"']/g,
+          (c) =>
+            ({
+              "&": "&amp;",
+              "<": "&lt;",
+              ">": "&gt;",
+              '"': "&quot;",
+              "'": "&#39;",
+            })[c],
+        );
+      }
+      function card(r) {
+        return (
+          '<article class="card ' +
+          (r.type.startsWith("Retirement") ? "retirement" : "") +
+          '"><small>' +
+          esc(r.type) +
+          "</small><h2>" +
+          esc(r.title) +
+          "</h2><p>" +
+          esc(r.summary) +
+          "</p><h3>Why this direction</h3><ul>" +
+          r.why.map((x) => "<li>" + esc(x) + "</li>").join("") +
+          "</ul><h3>Also compare</h3><p>" +
+          esc(r.alternative) +
+          "</p></article>"
+        );
+      }
+      container.innerHTML = items.length
+        ? items.map(card).join("")
+        : '<div class="empty"><strong>No saved diagnostic result was found.</strong><br><a href="diagnostic.html">Choose a diagnostic to begin →</a></div>';
+      if (items.length > 1)
+        document.getElementById("page-title").textContent =
+          "Your combined talent-retention picture.";
+      function summaryText() {
+        return items
+          .map((r) =>
+            [
+              r.type.toUpperCase(),
+              r.title,
+              r.summary,
+              "Why: " + r.why.join("; "),
+              "Verify: " + r.verify.join("; "),
+              "Also compare: " + r.alternative,
+              "Profile: " +
+                Object.entries(r.profile || {})
+                  .map(([k, v]) => k + ": " + v)
+                  .join("; "),
+            ].join("\n"),
+          )
+          .join("\n\n");
+      }
+      document
+        .getElementById("results-form")
+        .addEventListener("submit", async (e) => {
+          e.preventDefault();
+          if (!items.length) return;
+          const data = Object.fromEntries(new FormData(e.currentTarget));
+          data.results = items;
+          const status = document.getElementById("status"),
+            endpoint = window.SLT_FORM_ENDPOINT || "";
+          if (endpoint) {
+            try {
+              const response = await fetch(endpoint, {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify(data),
+              });
+              if (!response.ok) throw new Error();
+              status.textContent =
+                "Your request has been submitted. Please check your email for delivery updates.";
+              status.style.display = "block";
+              e.currentTarget.reset();
+            } catch {
+              status.textContent =
+                "We could not submit the request. Please try again or contact us directly.";
+              status.style.display = "block";
+            }
+          } else {
+            const body = [
+              "BENEFIT DIAGNOSTIC RESULTS REQUEST",
+              "",
+              ...Object.entries(data)
+                .filter(([k]) => !["results", "consent"].includes(k))
+                .map(([k, v]) => k + ": " + v),
+              "",
+              "RESULTS",
+              summaryText(),
+            ].join("\n");
+            location.href =
+              "mailto:" +
+              (window.SLT_TEAM_EMAIL || "hello@stoplosingtalent.com") +
+              "?subject=" +
+              encodeURIComponent("Benefit Results — " + data.company) +
+              "&body=" +
+              encodeURIComponent(body);
+            status.textContent =
+              "Your email program has been opened with your request and results. Send the prepared email to complete the request.";
+            status.style.display = "block";
+          }
+        });
+    </script>
+  </body>
+</html>

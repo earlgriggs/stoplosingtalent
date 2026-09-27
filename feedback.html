@@ -1,0 +1,286 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <title>Confidential Employee Feedback | Stop Losing Talent</title>
+    <meta
+      name="description"
+      content="Confidential employee workplace feedback module."
+    />
+    <link
+      href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Manrope:wght@600;700;800&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      :root {
+        --navy: #17213f;
+        --paper: #f5f3ec;
+        --teal: #6f4b8b;
+        --sage: #9aaa91;
+        --gold: #c6a052;
+        --ink: #20283f;
+      }
+      * {
+        box-sizing: border-box;
+      }
+      body {
+        margin: 0;
+        background: var(--paper);
+        color: var(--ink);
+        font:
+          16px/1.5 "DM Sans",
+          sans-serif;
+      }
+      .top {
+        background: var(--navy);
+        color: #fff;
+        padding: 24px clamp(20px, 5vw, 70px);
+        display: flex;
+        justify-content: space-between;
+      }
+      .top a {
+        color: #fff;
+      }
+      .wrap {
+        width: min(900px, calc(100% - 36px));
+        margin: auto;
+        padding: 60px 0;
+      }
+      h1,
+      h2 {
+        font-family: Manrope;
+        letter-spacing: -0.05em;
+        line-height: 1.02;
+      }
+      h1 {
+        font-size: clamp(3rem, 7vw, 6rem);
+        margin: 0 0 18px;
+      }
+      .notice {
+        background: #fff;
+        border-left: 7px solid var(--gold);
+        padding: 22px;
+        margin: 30px 0;
+      }
+      .grid {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 18px;
+      }
+      .field {
+        background: #fff;
+        padding: 22px;
+      }
+      .field label {
+        font-weight: 800;
+        display: block;
+        margin-bottom: 10px;
+      }
+      .field select,
+      .field input,
+      .field textarea {
+        width: 100%;
+        padding: 11px;
+        border: 2px solid #aab2b8;
+        font: inherit;
+      }
+      .wide {
+        grid-column: 1/-1;
+      }
+      .button {
+        background: var(--teal);
+        color: #fff;
+        border: 0;
+        padding: 14px 20px;
+        font-weight: 800;
+        cursor: pointer;
+      }
+      .button:disabled {
+        opacity: 0.4;
+      }
+      .status {
+        display: none;
+        margin-top: 20px;
+        padding: 18px;
+        background: #e7ece2;
+        border-left: 6px solid var(--teal);
+      }
+      @media (max-width: 650px) {
+        .grid {
+          grid-template-columns: 1fr;
+        }
+        .wide {
+          grid-column: auto;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <header class="top">
+      <strong>STOP LOSING TALENT.</strong
+      ><a href="workplace.html">← Workplace diagnostic</a>
+    </header>
+    <main class="wrap">
+      <h1>Confidential employee feedback.</h1>
+      <p>
+        This pulse is designed to compare employee experience with leadership’s
+        workplace assessment without giving managers individually attributable
+        responses.
+      </p>
+      <div class="notice">
+        <strong>Confidentiality safeguard</strong><br />A secure response
+        service must validate a unique, single-use invitation token and store
+        the answers separately from identity. This static preview will not
+        transmit employee responses until that service is connected.
+      </div>
+      <form id="feedback-form">
+        <div class="grid">
+          <div class="field">
+            <label for="campaign">Campaign code</label
+            ><input id="campaign" name="campaign" required />
+          </div>
+          <div class="field">
+            <label for="token">Single-use invitation token</label
+            ><input id="token" name="token" required />
+          </div>
+          <div class="field">
+            <label>My supervisor treats employees fairly.</label
+            ><select name="manager_fairness" required>
+              <option value="">Select</option>
+              <option>Strongly agree</option>
+              <option>Agree</option>
+              <option>Neutral</option>
+              <option>Disagree</option>
+              <option>Strongly disagree</option>
+            </select>
+          </div>
+          <div class="field">
+            <label>My workload is generally sustainable.</label
+            ><select name="workload" required>
+              <option value="">Select</option>
+              <option>Strongly agree</option>
+              <option>Agree</option>
+              <option>Neutral</option>
+              <option>Disagree</option>
+              <option>Strongly disagree</option>
+            </select>
+          </div>
+          <div class="field">
+            <label>I can raise concerns without fear of retaliation.</label
+            ><select name="speak_up" required>
+              <option value="">Select</option>
+              <option>Strongly agree</option>
+              <option>Agree</option>
+              <option>Neutral</option>
+              <option>Disagree</option>
+              <option>Strongly disagree</option>
+            </select>
+          </div>
+          <div class="field">
+            <label>Leadership communicates important changes clearly.</label
+            ><select name="communication" required>
+              <option value="">Select</option>
+              <option>Strongly agree</option>
+              <option>Agree</option>
+              <option>Neutral</option>
+              <option>Disagree</option>
+              <option>Strongly disagree</option>
+            </select>
+          </div>
+          <div class="field">
+            <label>Good work is recognized consistently.</label
+            ><select name="recognition" required>
+              <option value="">Select</option>
+              <option>Strongly agree</option>
+              <option>Agree</option>
+              <option>Neutral</option>
+              <option>Disagree</option>
+              <option>Strongly disagree</option>
+            </select>
+          </div>
+          <div class="field">
+            <label>I have the tools and resources needed to succeed.</label
+            ><select name="resources" required>
+              <option value="">Select</option>
+              <option>Strongly agree</option>
+              <option>Agree</option>
+              <option>Neutral</option>
+              <option>Disagree</option>
+              <option>Strongly disagree</option>
+            </select>
+          </div>
+          <div class="field">
+            <label>I can see myself working here 12 months from now.</label
+            ><select name="intent_to_stay" required>
+              <option value="">Select</option>
+              <option>Strongly agree</option>
+              <option>Agree</option>
+              <option>Neutral</option>
+              <option>Disagree</option>
+              <option>Strongly disagree</option>
+            </select>
+          </div>
+          <div class="field">
+            <label>My work arrangement supports effective performance.</label
+            ><select name="work_arrangement" required>
+              <option value="">Select</option>
+              <option>Strongly agree</option>
+              <option>Agree</option>
+              <option>Neutral</option>
+              <option>Disagree</option>
+              <option>Strongly disagree</option>
+            </select>
+          </div>
+          <div class="field wide">
+            <label
+              >What is one realistic change that would make this a better place
+              to work?</label
+            ><textarea name="one_change" rows="4" maxlength="1000"></textarea>
+          </div>
+        </div>
+        <p>
+          <button class="button" id="submit" type="submit">
+            Submit confidential feedback
+          </button>
+        </p>
+        <div class="status" id="status"></div>
+      </form>
+    </main>
+    <script src="form-config.js"></script>
+    <script>
+      const endpoint = window.SLT_FEEDBACK_ENDPOINT || "",
+        button = document.getElementById("submit"),
+        status = document.getElementById("status");
+      if (!endpoint) {
+        button.disabled = true;
+        button.textContent = "Secure feedback service not yet connected";
+        status.style.display = "block";
+        status.textContent =
+          "Preview mode: responses remain on this page and are not stored or transmitted.";
+      }
+      document.getElementById("feedback-form").onsubmit = async (e) => {
+        e.preventDefault();
+        if (!endpoint) return;
+        const data = Object.fromEntries(new FormData(e.currentTarget));
+        try {
+          const r = await fetch(endpoint, {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify(data),
+          });
+          if (!r.ok) throw new Error();
+          status.style.display = "block";
+          status.textContent =
+            "Your confidential response has been recorded. This invitation cannot be used again.";
+          e.currentTarget.reset();
+          button.disabled = true;
+        } catch {
+          status.style.display = "block";
+          status.textContent =
+            "Your response was not submitted. Please use the contact information in your invitation for assistance.";
+        }
+      };
+    </script>
+  </body>
+</html>
