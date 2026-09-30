@@ -1,0 +1,5 @@
+# GitHub Pages: keep backend code and internal notes off the public site.
+exclude:
+  - api
+  - Claude.md
+  - CLAUDE.md

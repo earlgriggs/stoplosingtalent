@@ -897,15 +897,19 @@
               />
             </div>
           </div>
+          <input
+            name="website"
+            tabindex="-1"
+            autocomplete="off"
+            aria-hidden="true"
+            style="position: absolute; left: -9999px"
+          />
           <div class="form-actions">
-            <button class="button" type="submit">Prepare my inquiry →</button
-            ><small
-              >This opens a completed email for you to review and send securely
-              from your own email account.</small
-            >
+            <button class="button" type="submit">Submit my inquiry →</button
+            ><small>Your inquiry is sent securely to our team.</small>
           </div>
           <div class="success" id="form-success" role="status">
-            Your email draft is ready. Please send it to complete your request.
+            Your request has been received.
           </div>
         </form>
       </div>
@@ -919,6 +923,7 @@
         ><span>© <span id="year"></span> Stop Losing Talent</span>
       </div>
     </footer>
+    <script src="form-config.js"></script>
     <script>
       const fields = ["employees", "turnover", "salary", "replacement"].map(
         (id) => document.getElementById(id),
@@ -952,9 +957,35 @@
       });
       document
         .getElementById("diagnostic-form")
-        .addEventListener("submit", (event) => {
+        .addEventListener("submit", async (event) => {
           event.preventDefault();
-          const data = new FormData(event.currentTarget);
+          const form = event.currentTarget;
+          const data = new FormData(form);
+          const success = document.getElementById("form-success");
+          const endpoint = window.SLT_FORM_ENDPOINT || "";
+          if (endpoint) {
+            const button = form.querySelector('button[type="submit"]');
+            button.disabled = true;
+            try {
+              const response = await fetch(endpoint, {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({
+                  form: "index",
+                  ...Object.fromEntries(data),
+                }),
+              });
+              if (!response.ok) throw new Error();
+              success.textContent = "Your request has been received.";
+              form.reset();
+            } catch {
+              success.textContent =
+                "We could not submit the request. Please try again or contact us directly.";
+            }
+            success.style.display = "block";
+            button.disabled = false;
+            return;
+          }
           const lines = [
             "RETENTION DIAGNOSTIC REQUEST",
             "",
@@ -975,9 +1006,13 @@
           ];
           const subject =
             "Retention Diagnostic Request — " + data.get("company");
-          document.getElementById("form-success").style.display = "block";
+          success.textContent =
+            "Your email draft is ready. Please send it to complete your request.";
+          success.style.display = "block";
           window.location.href =
-            "mailto:hello@stoplosingtalent.com?subject=" +
+            "mailto:" +
+            (window.SLT_TEAM_EMAIL || "info@stoplosingtalent.com") +
+            "?subject=" +
             encodeURIComponent(subject) +
             "&body=" +
             encodeURIComponent(lines.join("\n"));

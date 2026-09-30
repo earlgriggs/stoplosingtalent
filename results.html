@@ -297,6 +297,13 @@
               these results.</label
             >
           </div>
+          <input
+            name="website"
+            tabindex="-1"
+            autocomplete="off"
+            aria-hidden="true"
+            style="position: absolute; left: -9999px"
+          />
           <button class="button" type="submit">
             Email my result summary →
           </button>
@@ -380,27 +387,31 @@
         .addEventListener("submit", async (e) => {
           e.preventDefault();
           if (!items.length) return;
-          const data = Object.fromEntries(new FormData(e.currentTarget));
+          const form = e.currentTarget;
+          const data = Object.fromEntries(new FormData(form));
           data.results = items;
           const status = document.getElementById("status"),
             endpoint = window.SLT_FORM_ENDPOINT || "";
           if (endpoint) {
+            const button = form.querySelector('button[type="submit"]');
+            button.disabled = true;
             try {
               const response = await fetch(endpoint, {
                 method: "POST",
                 headers: { "Content-Type": "application/json" },
-                body: JSON.stringify(data),
+                body: JSON.stringify({ form: "results", ...data }),
               });
               if (!response.ok) throw new Error();
               status.textContent =
-                "Your request has been submitted. Please check your email for delivery updates.";
+                "Your result summary has been sent to " + data.email + ".";
               status.style.display = "block";
-              e.currentTarget.reset();
+              form.reset();
             } catch {
               status.textContent =
                 "We could not submit the request. Please try again or contact us directly.";
               status.style.display = "block";
             }
+            button.disabled = false;
           } else {
             const body = [
               "BENEFIT DIAGNOSTIC RESULTS REQUEST",

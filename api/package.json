@@ -1,0 +1,6 @@
+{
+  "name": "stoplosingtalent-api",
+  "private": true,
+  "type": "module",
+  "engines": { "node": "24.x" }
+}

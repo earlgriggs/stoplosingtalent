@@ -1217,17 +1217,25 @@
               ></textarea>
             </div>
           </div>
+          <input
+            name="website"
+            tabindex="-1"
+            autocomplete="off"
+            aria-hidden="true"
+            style="position: absolute; left: -9999px"
+          />
           <div class="submit-line">
             <button class="button dark" type="submit">
-              Prepare my review request →</button
-            ><small>Review the completed email before sending.</small>
+              Submit my review request →</button
+            ><small>Your request is sent securely to our team.</small>
           </div>
-          <div class="success" id="success">
-            Your email is ready. Please send it to complete the request.
+          <div class="success" id="success" role="status">
+            Your request has been received.
           </div>
         </form>
       </div>
     </dialog>
+    <script src="form-config.js"></script>
     <script>
       const labels = {
         size: {
@@ -1628,9 +1636,43 @@
       });
       document
         .getElementById("contact-form")
-        .addEventListener("submit", (e) => {
+        .addEventListener("submit", async (e) => {
           e.preventDefault();
-          const d = new FormData(e.currentTarget);
+          const form = e.currentTarget;
+          const d = new FormData(form);
+          const success = document.getElementById("success");
+          const endpoint = window.SLT_FORM_ENDPOINT || "";
+          if (endpoint) {
+            const button = form.querySelector('button[type="submit"]');
+            button.disabled = true;
+            try {
+              const response = await fetch(endpoint, {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({
+                  form: "benefits",
+                  ...Object.fromEntries(d),
+                  profile: {
+                    Direction: answers.result,
+                    "Workforce size": labels.size[answers.size],
+                    "Current benefit": labels.current[answers.current],
+                    Priority: labels.priority[answers.priority],
+                    "Workforce mix": labels.workforce[answers.workforce],
+                    "Estimated participants": participants.value,
+                  },
+                }),
+              });
+              if (!response.ok) throw new Error();
+              success.textContent = "Your request has been received.";
+              form.reset();
+            } catch {
+              success.textContent =
+                "We could not submit the request. Please try again or contact us directly.";
+            }
+            success.style.display = "block";
+            button.disabled = false;
+            return;
+          }
           const body = [
             "EMPLOYER BENEFITS REVIEW REQUEST",
             "",
@@ -1652,9 +1694,13 @@
             "Additional context:",
             d.get("note") || "None provided",
           ].join("\n");
-          document.getElementById("success").style.display = "block";
+          success.textContent =
+            "Your email is ready. Please send it to complete the request.";
+          success.style.display = "block";
           location.href =
-            "mailto:hello@stoplosingtalent.com?subject=" +
+            "mailto:" +
+            (window.SLT_TEAM_EMAIL || "info@stoplosingtalent.com") +
+            "?subject=" +
             encodeURIComponent(
               "Employer Benefits Review — " + d.get("company"),
             ) +
