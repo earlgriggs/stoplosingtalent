@@ -1,5 +1,5 @@
-import { handleCors, readJson, clean, EMAIL_RE, escapeHtml } from "../lib/http.js";
-import { sendEmail, TEAM_INBOX } from "../lib/email.js";
+import { handleCors, readJson, clean, EMAIL_RE, escapeHtml, wrapHtml } from "../lib/http.js";
+import { sendEmail, teamRecipients } from "../lib/email.js";
 
 // One entry per site form. `fields` are [payload key, label, required].
 const FORMS = {
@@ -128,14 +128,6 @@ function rowsHtml(rows) {
   );
 }
 
-function wrapHtml(inner) {
-  return (
-    `<div style="font-family:Arial,Helvetica,sans-serif;color:#20283f;line-height:1.5;max-width:640px">` +
-    inner +
-    `</div>`
-  );
-}
-
 export default async function handler(req, res) {
   if (handleCors(req, res)) return;
 
@@ -191,7 +183,7 @@ export default async function handler(req, res) {
 
   try {
     await sendEmail({
-      to: TEAM_INBOX,
+      to: teamRecipients(),
       subject: form.subject(data),
       text,
       html,

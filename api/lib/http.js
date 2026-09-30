@@ -3,6 +3,14 @@ const ALLOWED_ORIGINS = new Set([
   "https://www.stoplosingtalent.com",
 ]);
 
+export function wrapHtml(inner) {
+  return (
+    `<div style="font-family:Arial,Helvetica,sans-serif;color:#20283f;line-height:1.5;max-width:640px">` +
+    inner +
+    `</div>`
+  );
+}
+
 // Applies CORS headers and handles preflight. Returns true when the request
 // has been fully answered (preflight or rejected) and the handler should stop.
 export function handleCors(req, res) {

@@ -259,10 +259,19 @@
         status.textContent =
           "Preview mode: responses remain on this page and are not stored or transmitted.";
       }
+      // Survey links carry the campaign code and token, e.g.
+      // feedback.html?campaign=acme-7K3Q&token=...
+      const params = new URLSearchParams(location.search);
+      if (params.get("campaign"))
+        document.getElementById("campaign").value = params.get("campaign");
+      if (params.get("token"))
+        document.getElementById("token").value = params.get("token");
       document.getElementById("feedback-form").onsubmit = async (e) => {
         e.preventDefault();
         if (!endpoint) return;
-        const data = Object.fromEntries(new FormData(e.currentTarget));
+        const form = e.currentTarget;
+        const data = Object.fromEntries(new FormData(form));
+        button.disabled = true;
         try {
           const r = await fetch(endpoint, {
             method: "POST",
@@ -273,12 +282,12 @@
           status.style.display = "block";
           status.textContent =
             "Your confidential response has been recorded. This invitation cannot be used again.";
-          e.currentTarget.reset();
-          button.disabled = true;
+          form.reset();
         } catch {
           status.style.display = "block";
           status.textContent =
             "Your response was not submitted. Please use the contact information in your invitation for assistance.";
+          button.disabled = false;
         }
       };
     </script>
